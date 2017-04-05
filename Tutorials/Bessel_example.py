@@ -1,4 +1,4 @@
-"""
+""" Comment
 example.py
 Compute the maximum of a Bessel function and plot it.
 """
