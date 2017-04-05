@@ -1,3 +1,4 @@
+'Commit example'
 class Enemy:
     def __init__(self, x):
         self.energy = x
