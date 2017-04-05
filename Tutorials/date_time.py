@@ -1,3 +1,4 @@
+'This example explains date manipulations'
 import datetime
 
 # Create new object
