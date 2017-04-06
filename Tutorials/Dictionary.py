@@ -1,4 +1,4 @@
-classmates = {'Tony': ' cool', 'Emma': ' sits behind', 'Lucy': ' asks too many questions'}
+classmates = {'Tony': ' is cool', 'Emma': ' sits behind', 'Lucy': ' asks too many questions'}
 
 #print(classmates)
 #print(classmates['Emma'])
