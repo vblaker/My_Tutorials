@@ -136,11 +136,11 @@ new_tuple = list(pi_tuple)
 # Made up of values with a unique key for each value
 # Similar to lists, but you can't join dicts with a +
 
-super_villains = {'Fiddler' : 'Isaac Bowin',
-                  'Captain Cold' : 'Leonard Snart',
-                  'Weather Wizard' : 'Mark Mardon',
-                  'Mirror Master' : 'Sam Scudder',
-                  'Pied Piper' : 'Thomas Peterson'}
+super_villains = {'Fiddler': 'Isaac Bowin',
+                  'Captain Cold': 'Leonard Snart',
+                  'Weather Wizard': 'Mark Mardon',
+                  'Mirror Master': 'Sam Scudder',
+                  'Pied Piper': 'Thomas Peterson'}
 
 print(super_villains['Captain Cold'])
 
@@ -173,31 +173,31 @@ print(super_villains.values())
 # Use the same number of proceeding spaces for blocks of code
 
 age = 30
-if age > 16 :
+if age > 16:
     print('You are old enough to drive')
 
 # Use an if statement if you want to execute different code regardless
 # of whether the condition ws met or not
 
-if age > 16 :
+if age > 16:
     print('You are old enough to drive')
-else :
+else:
     print('You are not old enough to drive')
 
 # If you want to check for multiple conditions use elif
 # If the first matches it won't check other conditions that follow
 
-if age >= 21 :
+if age >= 21:
     print('You are old enough to drive a tractor trailer')
 elif age >= 16:
     print('You are old enough to drive a car')
-else :
+else:
     print('You are not old enough to drive')
 
 # You can combine conditions with logical operators
 # Logical Operators : and, or, not
 
-if ((age >= 1) and (age <= 18)):
+if (age >= 1) and (age <= 18):
     print("You get a birthday party")
 elif (age == 21) or (age >= 65):
     print("You get a birthday party")
@@ -210,7 +210,7 @@ else:
 # Allows you to perform an action a set number of times
 # Range performs the action 10 times 0 - 9
 for x in range(0, 10):
-    print(x , ' ', end="")
+    print(x, ' ', end="")
 
 print('\n')
 
@@ -221,27 +221,27 @@ for y in grocery_list:
     print(y)
 
 # You can also define a list of numbers to cycle through
-for x in [2,4,6,8,10]:
+for x in [2, 4, 6, 8, 10]:
     print(x)
 
 # You can double up for loops to cycle through lists
-num_list =[[1,2,3],[10,20,30],[100,200,300]];
+num_list =[[1, 2, 3], [10, 20, 30], [100, 200, 300]];
 
-for x in range(0,3):
-    for y in range(0,3):
+for x in range(0, 3):
+    for y in range(0, 3):
         print(num_list[x][y])
 
 # WHILE LOOPS -------------
 # While loops are used when you don't know ahead of time how many
 # times you'll have to loop
-random_num = random.randrange(0,100)
+random_num = random.randrange(0, 100)
 
 while (random_num != 15):
     print(random_num)
     random_num = random.randrange(0,100)
 
 # An iterator for a while loop is defined before the loop
-i = 0;
+i = 0
 while (i <= 20):
     if(i%2 == 0):
         print(i)
@@ -260,6 +260,7 @@ while (i <= 20):
 # Functions allow you to reuse and write readable code
 # Type def (define), function name and parameters it receives
 # return is used to return something to the caller of the function
+
 def addNumbers(fNum, sNum):
     sumNum = fNum + sNum
     return sumNum
