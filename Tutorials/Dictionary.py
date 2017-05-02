@@ -5,3 +5,6 @@ classmates = {'Tony': ' is cool', 'Emma': ' sits behind', 'Lucy': ' asks too man
 
 for k, v in classmates.items():
     print(k + v)
+
+print('The size of classmates is:', len(classmates))
+
