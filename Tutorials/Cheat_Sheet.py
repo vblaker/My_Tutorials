@@ -56,7 +56,7 @@ print(quote + multi_line_quote)
 print("%s %s %s" % ('I like the quote', quote, multi_line_quote))
 
 # To keep from printing newlines use end=""
-print("I don't like ",end="")
+print("I don't like ", end="")
 print("newlines")
 
 # You can print a string multiple times with *
