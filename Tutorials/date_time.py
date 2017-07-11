@@ -6,9 +6,9 @@ now = datetime.datetime.now()
 CurrentDate = datetime.date.today()
 
 print("Today is: %s" % datetime.datetime.today())
+print("Today is: {}: ".format(datetime.datetime.today()))
 
-print("Current date and time using str method of datetime object:")
-print(str(now))
+print("Current date and time using str method of datetime object: {}".format(now))
 
 print('Current date and time using instance attributes:')
 print('Current year: %d' % now.year)
