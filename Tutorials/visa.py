@@ -15,7 +15,7 @@ for equipment in equipment_list:
         print(instrument.query("*IDN?"), end="")
         i = i + 1
     else:
-        print('Equipment %s is not queried' % equipment)
+        print('Equipment {} is not queried...'.format(equipment))
         del equipment_list[i]
 
 print('\nNew equipment list is:', equipment_list)

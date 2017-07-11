@@ -55,7 +55,7 @@ def extract_nbr(input_str):
 
 #Call function
 #print("The grand total from the string is: %.2f" % extract_nbr(s))
-extracted_array=extract_nbr(s)
+extracted_array = extract_nbr(s)
 total = sum(extracted_array)
 print('Input string was: %s' % s)
 print('Extracted array is: ')
