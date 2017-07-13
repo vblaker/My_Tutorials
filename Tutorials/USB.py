@@ -1,30 +1,30 @@
-import usb
+import usb.core
+import usb.util
 
-dev = usb.core.find(idVendor=0x0403, idProduct=0x6001)
+# find our device
+dev = usb.core.find(idVendor=0xfffe, idProduct=0x0001)
 
-reattach = False
-if dev.is_kernel_driver_active(0):
-    reattach = True
-    dev.detach_kernel_driver(0)
+# was it found?
+if dev is None:
+    raise ValueError('Device not found')
 
+# set the active configuration. With no arguments, the first
+# configuration will be the active one
 dev.set_configuration()
+
+# get an endpoint instance
 cfg = dev.get_active_configuration()
+intf = cfg[(0,0)]
 
-interface_number = cfg[(0,0)].bInterfaceNumber
-alternate_setting = usb.control.get_interface(dev, interface_number)
-intf = usb.util.find_descriptor(cfg, bInterfaceNumber = interface_number,
-                            bAlternateSetting = alternate_settting)
+ep = usb.util.find_descriptor(
+    intf,
+    # match the first OUT endpoint
+    custom_match = \
+    lambda e: \
+        usb.util.endpoint_direction(e.bEndpointAddress) == \
+        usb.util.ENDPOINT_OUT)
 
-ep = usb.util.find_descriptor(intf,custom_match = \
-      lambda e: \
-    usb.util.endpoint_direction(e.bEndpointAddress) == \
-    usb.util.ENDPOINT_OUT)
-ep.write("test\n\r")
+assert ep is not None
 
-# This is needed to release interface, otherwise attach_kernel_driver fails
-# due to "Resource busy"
-usb.util.dispose_resources(dev)
-
-# It may raise USBError if there's e.g. no kernel driver loaded at all
-if reattach:
-    dev.attach_kernel_driver(0)
+# write the data
+ep.write('test')
