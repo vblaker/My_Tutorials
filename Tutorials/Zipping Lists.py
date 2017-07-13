@@ -14,5 +14,5 @@ last = ['Ten', 'Twenty', 'Thirty']
 
 names = zip(first, last)
 
-for a , b in names:
+for a, b in names:
     print(a, b)
