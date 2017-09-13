@@ -6,15 +6,16 @@ import csv
 
 def IdentifyColumnHeaders(RowString):
 #Time (s),VBUS Voltage (V),VBUS Current (A),VCONN Voltage (V),VCONN Current (A),CC1 Voltage (V),CC1 Current (A),CC2 Voltage (V),CC2 Current (A)
-headers_list = ['Time (s)', 'VBUS Voltage (V)', 'VBUS Current (A)', 'VCONN Voltage (V)',
-                'VCONN Current (A)', 'CC1 Voltage (V)', 'CC1 Current (A)', 'CC2 Voltage (V)',
-                'CC2 Current (A)']
+    headers_list = ['Time (s)', 'VBUS Voltage (V)', 'VBUS Current (A)', 'VCONN Voltage (V)',
+                    'VCONN Current (A)', 'CC1 Voltage (V)', 'CC1 Current (A)', 'CC2 Voltage (V)',
+                    'CC2 Current (A)']
 
     try:
-        time_stamp = row.index('Time (s)')
-        vbus_vols_idx = row.index('VBUS Voltage (V)')
-        vbus_amps_idx = row.index('VBUS Current (A)')
-        vconn_volts_idx = row.index('VCONN Voltage (V)')
+        for header in headers_list:
+            time_stamp_idx = row.index(header)
+            vbus_vols_idx = row.index('VBUS Voltage (V)')
+            vbus_amps_idx = row.index('VBUS Current (A)')
+            vconn_volts_idx = row.index('VCONN Voltage (V)')
 
     except ValueError:
         print('header Parsing Error')
