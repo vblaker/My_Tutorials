@@ -42,5 +42,3 @@ def os_detect(debug=0):
         print(os_name)
 
     return os_name
-
-os_detect(debug=1)
