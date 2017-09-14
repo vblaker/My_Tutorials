@@ -5,7 +5,6 @@ import csv
 
 
 def identify_column_headers(header_row):
-
     header_list = ['Time (s)', 'VBUS Voltage (V)', 'VBUS Current (A)', 'VCONN Voltage (V)',
                     'VCONN Current (A)', 'CC1 Voltage (V)', 'CC1 Current (A)', 'CC2 Voltage (V)',
                     'CC2 Current (A)']
@@ -21,7 +20,6 @@ def identify_column_headers(header_row):
 
 
 if platform.system() == 'Linux':
-    #os_system = str(os.system("uname -a")).split(' ')
     print(os.system("uname -a"))
     print(sys.version)
 
