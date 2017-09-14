@@ -4,21 +4,20 @@ import os
 import csv
 
 
-def IdentifyColumnHeaders(RowString):
-#Time (s),VBUS Voltage (V),VBUS Current (A),VCONN Voltage (V),VCONN Current (A),CC1 Voltage (V),CC1 Current (A),CC2 Voltage (V),CC2 Current (A)
-    headers_list = ['Time (s)', 'VBUS Voltage (V)', 'VBUS Current (A)', 'VCONN Voltage (V)',
+def identify_column_headers(header_row):
+
+    header_list = ['Time (s)', 'VBUS Voltage (V)', 'VBUS Current (A)', 'VCONN Voltage (V)',
                     'VCONN Current (A)', 'CC1 Voltage (V)', 'CC1 Current (A)', 'CC2 Voltage (V)',
                     'CC2 Current (A)']
-
+    header_dict = {}
     try:
-        for header in headers_list:
-            time_stamp_idx = row.index(header)
-            vbus_vols_idx = row.index('VBUS Voltage (V)')
-            vbus_amps_idx = row.index('VBUS Current (A)')
-            vconn_volts_idx = row.index('VCONN Voltage (V)')
-
+        for k in range(0, len(header_row)):
+            header_dict[header_list[k]] = header_row.index(header_list[k])
     except ValueError:
-        print('header Parsing Error')
+            print('header Parsing Error')
+
+    print(header_dict)
+    return(header_dict)
 
 if (platform.system() == "Linux"):
     #os_system = str(os.system("uname -a")).split(' ')
@@ -62,41 +61,42 @@ with open('export.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
 
     Time_stamp = []
-    VBUS_vols = []
+    VBUS_volts = []
     VBUS_curr = []
-    VCONN_volt = []
+    VCONN_volts = []
     VCONN_curr = []
-    CC1_volt = []
+    CC1_volts = []
     CC1_curr = []
-    CC2_volt = []
+    CC2_volts = []
     CC2_curr = []
 
-    i = 0
+    col_header_dict = {}
+
     for row in readCSV:
-        #print(row)
+        print(row)
 
         try:
-            if any('VBUS') in row:
-                IdentifyColumnHeaders(row)
-
+            if row[0] == 'Time (s)':
+                # Identify all the Column Headers
+                col_header_dict = identify_column_headers(row)
 
             f = float(row[0])
             #print(f)
-            Time_stamp.append(float(row[0]))
-            VBUS_vols.append(float(row[1]))
-            VBUS_curr.append(float(row[2]))
-            VCONN_volt.append(float(row[3]))
-            VCONN_curr.append(float(row[4]))
-            CC1_volt.append(float(row[5]))
-            CC1_curr.append(float(row[6]))
-            CC2_volt.append(float(row[7]))
-            CC2_curr.append(float(row[8]))
-            i += 1
+
+            for key, value in col_header_dict.items():
+                Time_stamp.append(float(row[col_header_dict['Time (s)']]))
+                VBUS_volts.append(float(row[col_header_dict['VBUS Voltage (V)']]))
+                VBUS_curr.append(float(row[col_header_dict['VBUS Current (A)']]))
+                VCONN_volts.append(float(row[col_header_dict['VCONN Voltage (V)']]))
+                VCONN_curr.append(float(row[col_header_dict['VCONN Current (A)']]))
+                CC1_volts.append(float(row[col_header_dict['CC1 Voltage (V)']]))
+                CC1_curr.append(float(row[col_header_dict['CC1 Current (A)']]))
+                CC2_volts.append(float(row[col_header_dict['CC2 Voltage (V)']]))
+                CC2_curr.append(float(row[col_header_dict['CC2 Current (A)']]))
+
         except ValueError:
             print('Skipping row {}'.format(row))
 
 
-print('The size of data is {} rows'.format(i))
-print('Time Stamps:{}'.format(Time_stamp))
-print('VBUS MAX Voltage: {}'.format(max(VBUS_vols)))
-print('VBUS Voltages:{}'.format(VBUS_vols))
+#print('The size of data is {} rows'.format(i))
+print('VBUS MAX Voltage: {}'.format(max(VBUS_volts)))
