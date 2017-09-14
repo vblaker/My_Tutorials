@@ -17,9 +17,10 @@ def identify_column_headers(header_row):
             print('header Parsing Error')
 
     print(header_dict)
-    return(header_dict)
+    return header_dict
 
-if (platform.system() == "Linux"):
+
+if platform.system() == 'Linux':
     #os_system = str(os.system("uname -a")).split(' ')
     print(os.system("uname -a"))
     print(sys.version)
@@ -41,7 +42,7 @@ if (platform.system() == "Linux"):
         platform.mac_ver(),
     ))
 
-elif (platform.system() == "Windows"):
+elif platform.system() == "Windows":
     #os_system = str(os.system("uname -a")).split(' ')
     #print("Detected OS is %s" % platform.system())
     print('Detected OS is {}'.format(platform.system()))
@@ -98,5 +99,5 @@ with open('export.csv') as csvfile:
             print('Skipping row {}'.format(row))
 
 
-#print('The size of data is {} rows'.format(i))
+print('The size of data is {}'.format(len(Time_stamp)))
 print('VBUS MAX Voltage: {}'.format(max(VBUS_volts)))
