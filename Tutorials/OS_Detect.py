@@ -5,7 +5,6 @@ import sys
 #Retrieves OS information
 def os_detect(debug=0):
 
-
     if sys.platform.startswith('linux'):
         os_name = 'Linux'
 
@@ -31,6 +30,7 @@ def os_detect(debug=0):
 
     elif sys.platform.startswith('win'):
         os_name = 'Windows'
+        python_version = platform.python_build()[0]
         if debug != 0:
             print('Detected OS is {}'.format(os_name))
             print('Python release: {}'.format(platform.python_build()))
@@ -41,4 +41,10 @@ def os_detect(debug=0):
     if debug != 0:
         print(os_name)
 
-    return os_name
+    platform_architecture = platform.architecture()
+
+    return (os_name, python_version, platform_architecture)
+
+
+#os_name, python_version, platform_architecture = os_detect(debug=1)
+#print(python_version, os_name, platform_architecture)

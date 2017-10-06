@@ -27,7 +27,7 @@ header_dict = {}
 for i in range(len(row)):
     header_dict[header_list[i]] = row.index(header_list[i])
 
-print(header_dict)
+#print(header_dict)
 
 for key, value in header_dict.items():
-    print(key)
+    print(value, key)
