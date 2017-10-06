@@ -20,5 +20,5 @@ print("Current second: %d" % now.second)
 print("Current microsecond: %d" % now.microsecond)
 
 print("Current date and time using strftime:")
-print(now.strftime("%Y-%b-%d %H:%M"))
+print(now.strftime("%Y-%b-%d %H:%M:%S:%f"))
 print(now.strftime("%Y-%m-%d %H:%M"))
