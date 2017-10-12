@@ -30,4 +30,7 @@ for i in range(len(row)):
 #print(header_dict)
 
 for key, value in header_dict.items():
-    print(value, key)
+    try:
+        print(value, key)
+    except KeyError:
+        print('Key {0} does not exist'.format(key))
