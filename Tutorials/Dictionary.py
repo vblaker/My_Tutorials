@@ -34,3 +34,4 @@ for key, value in header_dict.items():
         print(value, key)
     except KeyError:
         print('Key {0} does not exist'.format(key))
+        print('header_dict.get{0} method returned {0}'.format(key, header_dict.get(key)))
