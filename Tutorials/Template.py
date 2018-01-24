@@ -9,7 +9,7 @@ def Main():
     cart.append(dict(item="Cake", price=12, qty=1))
     cart.append(dict(item="Fish", price=32, qty=4))
 
-    t = Template("$qty x $item = $price")
+    t = MyTemplate("$qty x $item = $price")
     total = 0
     print("Cart:")
 
