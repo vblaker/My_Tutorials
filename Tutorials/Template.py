@@ -11,9 +11,9 @@ def Main():
 
     t = MyTemplate("$qty x $item = $price")
     total = 0
-    print("Cart:")
+    print("Cart:", cart)
+    print('Number of items in the cart is: {0}'.format(len(cart)))
 
-    print(cart)
     for data in cart:
         print(t.substitute(data))
         total += data["price"]
