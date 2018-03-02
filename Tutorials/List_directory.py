@@ -1,5 +1,4 @@
 import os
-import string
 
 file_list = os.listdir(r".")
 print("Current Path is %s" % os.getcwd())
