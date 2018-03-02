@@ -20,5 +20,6 @@ def Main():
 
     print("Total:", str(total))
 
+
 if __name__ == '__main__':
     Main()
