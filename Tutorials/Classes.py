@@ -11,6 +11,7 @@ class Enemy:
         else:
             print(str(self.life) + " life left")
 
+
 enemy1 = Enemy()
 enemy2 = Enemy()
 
@@ -27,6 +28,7 @@ class Tuna:
 
     def swim(self):
         print('I am swimming')
+
 
 flipper = Tuna()
 flipper.swim()
