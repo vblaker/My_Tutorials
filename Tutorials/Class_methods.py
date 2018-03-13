@@ -30,8 +30,8 @@ class Employee:
     @staticmethod
     def is_workday(day):
         if day.weekday() == 5 or day.weekday() == 6:
-            return False    #False means it wasn't a Saturday or Sunday
-        return True         #True means it WAS a Saturday or Sunday
+            return False    #False means it was a Saturday or Sunday
+        return True         #True means it wasn't a Saturday or Sunday
 
 print('Number of Employees is {}'.format(Employee.num_of_employees))
 
@@ -66,9 +66,6 @@ new_emp_1 = Employee.from_string(emp_str_1)
 import datetime
 my_date = datetime.date(2017, 3, 13)
 print('This day was weekday: {}'.format(Employee.is_workday(my_date)))
-
-
-
 
 
 if __name__ == '__main__':
