@@ -13,6 +13,7 @@ class Shroom:
 class BigMario(Mario, Shroom):
     pass
 
-bm = BigMario()
+
+bm = BigMario
 bm.move()
 bm.eat_shroom()
