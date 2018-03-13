@@ -1,12 +1,14 @@
-class Mario():
+class Mario:
 
     def move(self):
         print('I am moving')
 
-class Shroom():
+
+class Shroom:
 
     def eat_shroom(self):
         print('Now I am BIG!')
+
 
 class BigMario(Mario, Shroom):
     pass
