@@ -1,4 +1,4 @@
-class Parent():
+class Parent:
     def print_last_name(self):
         print('Blaker')
 
