@@ -5,7 +5,7 @@ class Enemy:
         print('ouch!')
         self.life -= 1
 
-    def checklife(self):
+    def check_life(self):
         if self.life <= 0:
             print('I am dead')
         else:
@@ -17,8 +17,8 @@ enemy2 = Enemy()
 
 enemy1.attack()
 enemy1.attack()
-enemy1.checklife()
-enemy2.checklife()
+enemy1.check_life()
+enemy2.check_life()
 
 
 class Tuna:
@@ -32,3 +32,7 @@ class Tuna:
 
 flipper = Tuna()
 flipper.swim()
+
+
+if __name__ == '__main__':
+    pass
