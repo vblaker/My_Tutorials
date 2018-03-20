@@ -225,7 +225,7 @@ for x in [2, 4, 6, 8, 10]:
     print(x)
 
 # You can double up for loops to cycle through lists
-num_list =[[1, 2, 3], [10, 20, 30], [100, 200, 300]];
+num_list = [[1, 2, 3], [10, 20, 30], [100, 200, 300]]
 
 for x in range(0, 3):
     for y in range(0, 3):
@@ -236,16 +236,16 @@ for x in range(0, 3):
 # times you'll have to loop
 random_num = random.randrange(0, 100)
 
-while (random_num != 15):
+while random_num != 15:
     print(random_num)
     random_num = random.randrange(0,100)
 
 # An iterator for a while loop is defined before the loop
 i = 0
-while (i <= 20):
-    if(i%2 == 0):
+while i <= 20:
+    if i % 2 == 0:
         print(i)
-    elif(i == 9):
+    elif i == 9:
         # Forces the loop to end all together
         break
     else:
@@ -261,6 +261,7 @@ while (i <= 20):
 # Type def (define), function name and parameters it receives
 # return is used to return something to the caller of the function
 
+
 def addNumbers(fNum, sNum):
     sumNum = fNum + sNum
     return sumNum
@@ -272,7 +273,7 @@ print(addNumbers(1, 4))
 # print(sumNum)
 
 # If you define a variable outside of the function it works every place
-newNum = 0;
+newNum = 0
 def subNumbers(fNum, sNum):
     newNum = fNum - sNum
     return newNum
@@ -364,6 +365,7 @@ os.remove("test.txt")
 # The concept of OOP allows us to model real world things using code
 # Every object has attributes (color, height, weight) which are object variables
 # Every object has abilities (walk, talk, eat) which are object functions
+
 
 class Animal:
     # None signifies the lack of a value
