@@ -9,7 +9,7 @@ try:
         raise ValueError
     errorFlag = False
 
-    if debug == 1:
+    if debug == 0:
 
         # Split string into a list of bytes
         str_list = [my_string[i:i + 2] for i in range(0, len(my_string), 2)]
