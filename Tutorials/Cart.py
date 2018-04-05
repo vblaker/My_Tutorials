@@ -5,7 +5,7 @@ class MyTemplate(Template):
     delimiter = '#'
 
 
-def Main():
+def main():
     cart = []
     cart.append(dict(item="Coke", price=8, qty=2))
     cart.append(dict(item="Cake", price=12, qty=1))
@@ -22,4 +22,4 @@ def Main():
 
 
 if __name__ == '__main__':
-    Main()
+    main()
