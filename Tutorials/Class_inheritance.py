@@ -28,7 +28,7 @@ class Developer(Employee):
 
 class Manager(Employee):
 
-    def __init__(self, first, last, pay, employees = None):
+    def __init__(self, first, last, pay, employees=None):
         super().__init__(first, last, pay)
         if employees is None:
             self.employees = []
@@ -40,12 +40,13 @@ class Manager(Employee):
             self.employees.append(emp)
 
     def remove_emp(self, emp):
-        if emp  in self.employees:
+        if emp in self.employees:
             self.employees.remove(emp)
 
     def print_emp(self):
         for emp in self.employees:
             print('-->', emp.fullname())
+
 
 dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
 dev_2 = Developer('Test', 'Employee', 60000, 'Java')
@@ -54,6 +55,8 @@ mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
 print(mgr_1.email)
 
 mgr_1.add_emp(dev_2)
+#mgr_1.print_emp()
+
 mgr_1.remove_emp(dev_1)
 mgr_1.print_emp()
 
