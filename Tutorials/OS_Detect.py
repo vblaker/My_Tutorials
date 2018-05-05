@@ -2,7 +2,8 @@ import platform
 import os
 import sys
 
-#Retrieves OS information
+
+# Retrieves OS information
 def os_detect(debug=0):
 
     if sys.platform.startswith('linux'):
