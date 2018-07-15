@@ -14,9 +14,12 @@ def timer(name, delay, repeat):
 def main():
     t1 = threading.Thread(target=timer, args=('Timer1', 1, 5))
     t2 = threading.Thread(target=timer, args=('Timer2', 1, 5))
+
+    # Start threads first to run independently
     t1.start()
     t2.start()
 
+    # Do t.join() to join processes to complete main(0 when all threads are done
     t1.join()
     t2.join()
 
