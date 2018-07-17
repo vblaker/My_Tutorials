@@ -40,12 +40,15 @@ def read_flash_image_filenames(filepath, debug=0):
                 for name in files:
                     if fnmatch.fnmatch(name, pattern):
                         result.append(os.path.join(root, name))
+            if result == '':
+                err.set_fail('File {} not found'.format(pattern))
+                logging.debug('File {} not found'.format(pattern))
             return result
 
         # Get the first occurrence on the returned results list
         efi_bootloader = find('*.efi', filepath)[0]
         bootloader = find('*bootloader', filepath)[0]
-        flash_image = find('*img.zip', filepath)[0]
+        flash_image = find('*.tgz', filepath)[0]
         sequencer_xml = find('*cfg.xml', filepath)[0]
         if debug == 1:
             logging.debug(efi_bootloader)
@@ -88,7 +91,6 @@ def read_sequencer_xml_file(filename, debug=0):
 
 
 def get_fastboot_devices(debug=0):
-    logger = logging.getLogger(__name__)
     err = Error()
 
     try:
@@ -180,10 +182,10 @@ def fastboot_reboot_bootloader(fastboot_device, time_out=60, debug=0):
 
 
 def fastboot_flash_efi_bootloader(fastboot_device, efi_bootloader, time_out=60, debug=0):
-    err = Error
+    err = Error()
     try:
-        cmd = 'fastboot -s ' + fastboot_device + ' boot ' + efi_bootloader
-        response = os.popen(cmd).readlines()
+        cmd = ["fastboot", "-s", fastboot_device, "boot", efi_bootloader]
+        response = subprocess.check_output(cmd)
         if debug == 1:
             logging.debug('Flashing {} '.format(efi_bootloader))
         time.sleep(1)
@@ -196,14 +198,14 @@ def fastboot_flash_efi_bootloader(fastboot_device, efi_bootloader, time_out=60, 
             i += 1
 
         if i >= time_out:
-            print('Device {} EFI bootloader flash timed out, exiting...'.format(fastboot_device))
+            logging.debug('Device {} EFI bootloader flash timed out, exiting...'.format(fastboot_device))
+            err.set_fail('Device {} EFI bootloader flash timed out, exiting...'.format(fastboot_device))
+        elif len(response) != 0:
+            raise IOError('Fastboot EFI bootloader error!')
         else:
             if debug == 1:
                 logging.debug('Device {} rebooted in {} seconds'.format(fastboot_device, i))
-
-        if len(response) != 0:
-            raise IOError('Fastboot EFI bootloader error!')
-        err.set_pass()
+            err.set_pass()
 
     except IOError:
         print('Fastboot EFI bootloader error for device {}'.format(fastboot_device))
@@ -216,11 +218,10 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, time_out, debug=0):
     err = Error
 
     try:
-        cmd = 'fastboot -s ' + fastboot_device + ' boot ' + bootloader
-        response = os.popen(cmd).readlines()
+        cmd = ["fastboot", "-s", fastboot_device, "-w", "update", flash_image]
+        response = subprocess.check_output(cmd)
         if debug == 1:
-            print('Flashing {} '.format(bootloader))
-        time.sleep(1)
+            logging.debug('Flashing {} '.format(flash_image))
 
         i = 0
         result = []
@@ -231,12 +232,12 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, time_out, debug=0):
 
         if i >= time_out:
             print('Device {} image flash timed out, exiting...'.format(flash_image))
-        else:
+        elif len(response) != 0:
             if debug == 1:
                 logging.debug('Device {} flashed in {} seconds'.format(fastboot_device, i))
-
-        if len(response) != 0:
+        else:
             raise IOError('Fastboot flash error!')
+
     except IOError as err:
         logging.debug('Fastboot error for device {}'.format(fastboot_device))
         return 1
@@ -245,45 +246,46 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, time_out, debug=0):
 def fastboot_erase_userdata(fastboot_device, time_out=60, debug=0):
     err = Error()
     try:
-        cmd = 'fastboot -s ' + fastboot_device + ' erase userdata'
-        response = os.popen(cmd).readlines()
+        cmd = ["fastboot", "-s", fastboot_device, "erase", "userdata"]
+        response = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
         if debug == 1:
             logging.debug('Erasing userdata on {} device'.format(fastboot_device))
         time.sleep(1)
 
         i = 0
         result = []
-        while i < time_out and (fastboot_device not in result):
+        while i < time_out and ("OKAY" not in response) and (fastboot_device not in result):
             err, result = get_fastboot_devices()
             time.sleep(1)
             i += 1
 
         if i >= time_out:
-            print('Device {} Failed to erase userdata, exiting...'.format(fastboot_device))
-        else:
+            logging.debug('Device {} timed out to erase userdata in {} seconds, exiting...'.format(fastboot_device, i))
+            raise IOError('Fastboot erase userdata timeout error!')
+        elif len(response) == 0:
             if debug == 1:
-                logging.debug('Erased {} device in in {} seconds'.format(fastboot_device, i))
+                logging.debug('No response returned from the {} device'.format(fastboot_device))
+                raise IOError('Fastboot erase userdata error!')
+        else:
+            err.set_pass()
+            if debug == 1:
+                logging.debug('Erased {} device in {} seconds'.format(fastboot_device, i))
 
-        if len(response) != 0:
-            raise IOError('Fastboot erase userdata error!')
-
-        # Set passing flag to be returned by the function
-        err.set_pass()
-
-    except IOError:
-        print('Fastboot userdata earse error for device {}'.format(fastboot_device))
+    except IOError as e:
+        logging.debug(e.args)
+        logging.debug('Fastboot userdata erase error for device {}'.format(fastboot_device))
         # Build error reporting
         err.set_fail('Failed to erase userdata')
 
     return err
 
 
-def update_worker(fastboot_device):
+def update_worker(fastboot_device, debug=0):
     """thread update worker function"""
 
-    debug = 1
+    #debug = 1
     file_path = os.getcwd()
-    err, efi_bootloader, bootloader, flash_image, sequencer_xml = read_flash_image_filenames(file_path, debug=1)
+    err, efi_bootloader, bootloader, flash_image, sequencer_xml = read_flash_image_filenames(file_path, debug=debug)
     err, sequencer_list = read_sequencer_xml_file(sequencer_xml)
 
     try:
@@ -292,23 +294,23 @@ def update_worker(fastboot_device):
             if sequencer_list[i] == 'fastboot_reboot_bootloader':
                 if debug == 1:
                     logging.debug('Envoking fastboot_reboot_bootloader')
-                err = fastboot_reboot_bootloader(fastboot_device)
+                err = fastboot_reboot_bootloader(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_efi_bootloader':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_efi_bootloader')
-                err = fastboot_flash_efi_bootloader(efi_bootloader)
+                err = fastboot_flash_efi_bootloader(efi_bootloader, debug=debug)
             elif sequencer_list[i] == 'get_fastboot_devices':
                 if debug == 1:
                     logging.debug('Envoking get_fastboot_devices')
-                err = fastboot_reboot_bootloader(fastboot_device)
+                err = fastboot_reboot_bootloader(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_erase_userdata':
                 if debug == 1:
                     logging.debug('Envoking fastboot_erase_userdata')
-                err = fastboot_erase_userdata(fastboot_device)
+                err = fastboot_erase_userdata(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_aos_image':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_aos_image')
-                err = fastboot_flash_aos_image()
+                err = fastboot_flash_aos_image(debug=debug)
             else:
                 logging.debug('Unknown function call {}'.format(sequencer_list[i]))
                 exit(1)
@@ -321,12 +323,10 @@ def update_worker(fastboot_device):
         logging.debug(e.args)
         logging.debug('Unexpected exception in the thread - exiting... \n{}'.format(e.args))
         exit()
-    #return
 
 
 def fastboot_getvar(fastboot_device, param):
 
-    debug = 1
     err = Error()
 
     try:
@@ -339,7 +339,7 @@ def fastboot_getvar(fastboot_device, param):
         err.set_pass()
 
     except Exception as e:
-        fastboot_device_var_list = []
+        param_list = []
         logging.debug('Failed to get fastboot properties\s {}'.format(e.args))
         err.set_fail('Failed to get fastboot properties')
 
@@ -348,6 +348,7 @@ def fastboot_getvar(fastboot_device, param):
 
 def main():
 
+    debug = 0
     try:
         # err, adb_devices_list = get_adb_devices()
         # for device in adb_devices_list:
@@ -356,10 +357,10 @@ def main():
         file_path = os.getcwd()         # Get current working path
 
         # Find all flash images in the working path
-        err, efi_bootloader, bootloader, flash_image, sequencer_xml = read_flash_image_filenames(file_path, debug=1)
+        err, efi_bootloader, bootloader, flash_image, sequencer_xml = read_flash_image_filenames(file_path, debug=debug)
 
         # Get all connected fastboot devices
-        err, devices = get_fastboot_devices(debug=1)
+        err, devices = get_fastboot_devices(debug=debug)
 
         fastboot_dev_dict = dict()
         for device in devices:
@@ -368,22 +369,19 @@ def main():
         # Spawn a worker update thread for every connected fastboot device
         threads = []
         for device in devices:
-            t = threading.Thread(name=device, target=update_worker, args=[device])
+            t = threading.Thread(name=device, target=update_worker, args=[device, debug])
             threads.append(t)
             t.start()
-            logging.debug('Starting thread for serial number {}'.format(device))
+            if debug == 1:
+                logging.debug('Starting thread for serial number {}'.format(device))
 
         # Join threads  - determine if needed in this case
         for thread in threads:
             thread.join()
 
-        # Call clean-up function
-        # logging.debug('Calling clean-up atexit')
-        # import atexit
-        # atexit.register(get_adb_devices)
-
     except IOError as e:
-        pass
+        logging.debug(e.args)
+        err.set_fail(e.args)
 
 if __name__ == "__main__":
     main()
