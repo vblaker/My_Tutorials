@@ -347,6 +347,7 @@ def fastboot_getvar(fastboot_device, param):
 
 
 def main():
+    err = Error()
 
     debug = 0
     try:
@@ -360,11 +361,11 @@ def main():
         err, efi_bootloader, bootloader, flash_image, sequencer_xml = read_flash_image_filenames(file_path, debug=debug)
 
         # Get all connected fastboot devices
-        err, devices = get_fastboot_devices(debug=debug)
+        if not err.error_flag: err, devices = get_fastboot_devices(debug=debug)
 
         fastboot_dev_dict = dict()
         for device in devices:
-            err, fastboot_dev_dict[device] = fastboot_getvar(device, 'product')
+            if not err.error_flag: err, fastboot_dev_dict[device] = fastboot_getvar(device, 'product')
 
         # Spawn a worker update thread for every connected fastboot device
         threads = []
@@ -379,9 +380,12 @@ def main():
         for thread in threads:
             thread.join()
 
+        if not err.error_flag: err.set_pass()
+
     except IOError as e:
         logging.debug(e.args)
         err.set_fail(e.args)
+
 
 if __name__ == "__main__":
     main()

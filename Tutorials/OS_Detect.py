@@ -7,7 +7,7 @@ import sys
 def os_detect(debug=0):
     if sys.platform.startswith('linux'):
         os_name = 'Linux'
-
+        python_version = sys.version.split('\n')
         if debug != 0:
             print(os.system("uname -a"))
             print(sys.version)
@@ -35,6 +35,9 @@ def os_detect(debug=0):
             print('Python release: {}'.format(platform.python_build()))
     else:
         print("Unknown OS")
+        os_name = 'Unknown'
+        python_version = 'Unknown'
+
     if debug != 0:
         print(os_name)
 
