@@ -241,7 +241,7 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, debug=0):
     response = ''
 
     try:
-        cmd = ["fastboot", "-s", fastboot_device, "update", flash_image]
+        cmd = ["fastboot", "-s", fastboot_device, "update", flash_image, "--skip-reboot"]
         if debug == 1:
             logging.debug('Flashing {} image into fastboot device {}'.format(flash_image, fastboot_device))
 
@@ -257,7 +257,7 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, debug=0):
 
         stdout, stderr = process.communicate()
         print('Completed device {} flash in {} seconds'.format(fastboot_device, i))
-        print('Exit status {}'.format(status))
+        print('Exit status {} (0 = SUCCESS)'.format(status))
 
         if debug == 1:
             logging.debug('Completed device {} flash in {} seconds'.format(fastboot_device, i))
@@ -266,18 +266,20 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, debug=0):
             print('Flashing device {} timed out'.format(fastboot_device))
             err.set_fail('Flashing device {} timed out'.format(fastboot_device))
             logging.debug('Flashing device {} timed out'.format(fastboot_device))
+            raise IOError
 
-        if "Finished" not in stderr or status != 1:
+        if "Finished" not in stderr or status != 0:
             print('Flashing device {} was not completed successfully'.format(fastboot_device))
-            err.set_fail('Flashing device {} was not completed successfully'.format(fastboot_device))
+            err.set_fail('Flashing device {} was not completed successfully, returned status  '
+                         '= {}'.format(fastboot_device, status))
             logging.debug('Flashing device {} was not completed successfully'.format(fastboot_device))
+            raise IOError
 
         if debug == 1:
             logging.debug(stderr)
 
-    except IOError as e:
+    except IOError:
         logging.debug('Fastboot error for device {}'.format(fastboot_device))
-        err.set_fail('Unknown fastboot flash error')
 
     return err
 
@@ -372,7 +374,7 @@ def update_worker(fastboot_device, product, debug=0):
                 err = fastboot_flash_aos_image(fastboot_device, flash_image, debug=debug)
             else:
                 logging.debug('Unknown function call {}'.format(sequencer_list[i]))
-                exit(1)
+                exit()
 
             if err.error_flag:
                 raise IOError
@@ -380,6 +382,7 @@ def update_worker(fastboot_device, product, debug=0):
             i += 1
     except IOError as e:
         logging.debug(e.args)
+        logging.debug('Error message: {}'.format(err.error_string))
         logging.debug('Unexpected exception in the thread - exiting... \n{}'.format(e.args))
         exit()
 
@@ -407,6 +410,23 @@ def fastboot_getvar(fastboot_device, param):
     return err, param_dict
 
 
+def get_fastboot_dev_params(devices):
+    fastboot_dev_dict = dict()
+    for device in devices:
+        param_list = ['product', 'battery-voltage', 'battery-capacity', 'version-bootloader']
+
+        # Execute first read to populate fastboot_dev_dict with first value
+        err, temp = fastboot_getvar(device, param_list[0])
+        fastboot_dev_dict[device] = temp
+
+        # Iterate through the rest of the list starting with elem[1]
+        for i in range(1, len(param_list)):
+            err, temp = fastboot_getvar(device, param_list[i])
+            fastboot_dev_dict[device].update(temp)
+            i += 1
+    return fastboot_dev_dict
+
+
 def main():
     err = Error()
     err.set_pass()
@@ -415,13 +435,13 @@ def main():
         # Get all connected fastboot devices
         err, devices = get_fastboot_devices(debug=debug)
 
-        fastboot_dev_dict = dict()
-        for device in devices:
-            err, fastboot_dev_dict[device] = fastboot_getvar(device, 'product')
-            if err.error_flag is True:
-                raise IOError
+        # Get fastboot device parameters before flash
+        fastboot_dev_dict = get_fastboot_dev_params(devices)
 
-        print('Detected fastboot devices: {}'.format(fastboot_dev_dict))
+        if err.error_flag is True:
+            raise IOError
+
+        print('PRE_FLASH Detected fastboot devices: {}'.format(fastboot_dev_dict))
 
         # Spawn a worker update thread for every connected fastboot device
         threads = []
@@ -436,6 +456,11 @@ def main():
         # Join threads  - determine if needed in this case
         for thread in threads:
             thread.join()
+
+
+        # Get fastboot device parameters AFTER flash
+        fastboot_dev_dict = get_fastboot_dev_params(devices)
+        print('POST_FLASH Detected fastboot devices: {}'.format(fastboot_dev_dict))
 
     except IOError as e:
         logging.debug('{}'.format(err.error_string))
