@@ -4,6 +4,7 @@ import time
 import fnmatch
 import threading
 import subprocess
+import sys
 from xml.dom import minidom
 
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
@@ -197,6 +198,27 @@ def fastboot_reboot_bootloader(fastboot_device, time_out=60, debug=0):
         print('Fastboot reboot-bootloader error for device {}'.format(fastboot_device))
         # Build error reporting
         err.set_fail('Failed to reboot bootloader')
+
+    return err
+
+
+def fastboot_reboot_to_idle(fastboot_device, time_out=60, debug=0):
+    err = Error()
+    try:
+        cmd = 'fastboot -s ' + fastboot_device + ' reboot'
+        response = os.popen(cmd).readlines()
+        if debug == 1:
+            logging.debug('Rebooting {} to idle'.format(fastboot_device))
+
+        if "Rebooting" not in response and "Finished" not in response:
+            print('Device {} failed reboot to idle'.format(fastboot_device))
+            err.set_fail('Device {} failed reboot to idle'.format(fastboot_device))
+
+        # Set passing flag to be returned by the function
+        err.set_pass()
+
+    except IOError:
+        err.set_fail('Device {} failed reboot to idle'.format(fastboot_device))
 
     return err
 
@@ -410,10 +432,9 @@ def fastboot_getvar(fastboot_device, param):
     return err, param_dict
 
 
-def get_fastboot_dev_params(devices):
+def get_fastboot_dev_params(devices, param_list):
     fastboot_dev_dict = dict()
     for device in devices:
-        param_list = ['product', 'battery-voltage', 'battery-capacity', 'version-bootloader']
 
         # Execute first read to populate fastboot_dev_dict with first value
         err, temp = fastboot_getvar(device, param_list[0])
@@ -431,12 +452,16 @@ def main():
     err = Error()
     err.set_pass()
     debug = 1
+    print(sys.argv[1:])
+
+    param_list = ['product', 'battery-voltage', 'battery-capacity', 'version-bootloader']
+
     try:
         # Get all connected fastboot devices
         err, devices = get_fastboot_devices(debug=debug)
 
         # Get fastboot device parameters before flash
-        fastboot_dev_dict = get_fastboot_dev_params(devices)
+        fastboot_dev_dict = get_fastboot_dev_params(devices, param_list)
 
         if err.error_flag is True:
             raise IOError
@@ -457,10 +482,13 @@ def main():
         for thread in threads:
             thread.join()
 
-
         # Get fastboot device parameters AFTER flash
-        fastboot_dev_dict = get_fastboot_dev_params(devices)
+        fastboot_dev_dict = get_fastboot_dev_params(devices, param_list)
         print('POST_FLASH Detected fastboot devices: {}'.format(fastboot_dev_dict))
+
+        # Reboot to idle
+        for device in devices:
+            fastboot_reboot_to_idle(device, debug=debug)
 
     except IOError as e:
         logging.debug('{}'.format(err.error_string))
