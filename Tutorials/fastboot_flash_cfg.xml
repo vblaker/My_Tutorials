@@ -1,0 +1,7 @@
+<data>
+    <items>
+        <item name="fastboot_reboot_bootloader">fastboot_reboot_bootloader</item>
+        <item name="fastboot_erase_userdata">fastboot_erase_userdata</item>
+        <item name="fastboot_flash_aos_image">fastboot_flash_aos_image</item>
+    </items>
+</data>
