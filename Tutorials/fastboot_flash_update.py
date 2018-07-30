@@ -51,7 +51,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
                         result.append(os.path.join(root, name))
             if len(result) == 0:
                 err.set_fail('File {} not found'.format(pattern))
-                logging.debug('File {} not found'.format(pattern))
+                print('ERROR: File {} not found'.format(pattern))
                 result = []
             return result
 
@@ -234,7 +234,9 @@ def fastboot_reboot_to_idle(fastboot_device, time_out=60, debug=0):
 
         # Check if command errored out
         if ("Finished" in stderr) and ("Rebooting" in stderr):
-            print('Exit status: {} (0 = PASS)'.format(status))
+            if debug == 1:
+                logging.debug('Device {} rebooting to idle'.format(fastboot_device))
+            # print('Exit status: {} (0 = PASS)'.format(status))
         else:
             print('Exit status: {} (FAILED)'.format(status))
             raise IOError
@@ -395,7 +397,8 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
 
     if err.error_flag:
         error_dict[fastboot_device] = err
-        raise IOError
+        # raise IOError
+        exit()      # Exit if required flash image is missing
 
     err, sequencer_list = read_sequencer_xml_file(sequencer_xml)
 
@@ -537,9 +540,15 @@ def main():
         fastboot_dev_dict = get_fastboot_dev_params(devices, param_list)
         print('POST_FLASH Detected fastboot devices: {}'.format(fastboot_dev_dict))
 
-        # Reboot to idle
-        for device in devices:
-            fastboot_reboot_to_idle(device, debug=debug)
+        # Reboot to idle all the devices that flashed successfully
+        for device in error_dict:
+            if not error_dict[device].error_flag:
+                if debug == 1:
+                    logging.debug('Device {} flashed successfully, rebooting...'.format(device))
+                print('Device {} PASSED'.format(device))
+                fastboot_reboot_to_idle(device, debug=debug)
+            else:
+                print('Device {} FAILED'.format(device))
 
     except IOError:
         logging.debug('{}'.format(err.error_string))
