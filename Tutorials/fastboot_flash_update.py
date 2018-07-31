@@ -14,6 +14,8 @@ import threading
 import subprocess
 import sys
 from xml.dom import minidom
+import argparse
+
 
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
 
@@ -489,17 +491,19 @@ def main():
     err.set_pass()
 
     # Set debug parameter from the command prompt
-    if len(sys.argv) == 1:
-        debug = 0
-    elif sys.argv[1] == '-debug=1' or sys.argv[1] == 'debug=1':
-        debug = 1
-    elif sys.argv[1] == '-h' or sys.argv[1] == '-help':
-        debug = 0
-        print('Use \"-debug=1\" to turn on datalogging')
-        exit(0)
-    else:
-        debug = 0
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--debug", type=int, default=0,
+                        help="set debug level: \"-d 0\" for NONE, \"-d 1\" for enhanced")
+    args = parser.parse_args()
 
+    if args.debug == 0:
+        debug = 0
+    else:
+        debug = 1
+        if args.debug is not 1:
+            logging.debug('Unsupported debug level {}, defaulting to 1'.format(args.debug))
+        else:
+            logging.debug("The debug level is set to {}".format(debug))
 
     # Set fastboot parameter list to be extracted
     param_list = ['product', 'battery-voltage', 'battery-capacity', 'version-bootloader']
@@ -556,4 +560,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
