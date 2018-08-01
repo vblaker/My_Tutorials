@@ -1,7 +1,6 @@
 __author__ = 'Vadim Blaker'
 __copyright__ = 'Verifone 2018'
 __version__ = '0.0.0'
-__maintainer__ = 'Vadim Blaker'
 __email__ = 'VadimB1@verifone.com'
 __status__ = 'Pre-production'
 
@@ -59,6 +58,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
 
         # Get the first occurrence on the returned results list
 
+        # Find bootloader
         pattern = product + '*bootloader'
         tmp_list = find(pattern, filepath)
         if tmp_list == []:
@@ -67,23 +67,35 @@ def read_flash_image_filenames(filepath, product, debug=0):
         else:
             bootloader = tmp_list[0]
 
-        pattern = product.replace('_', '') + '*loader.efi'
-        efi_bootloader = find(pattern, filepath)[0]
-        if efi_bootloader == '':
-            err.set_fail('Could not find efi_bootloader')
-            raise IOError
+        # Find efi loader
+        # pattern = product.replace('_', '') + '*loader.efi'
+        # tmp_list = find(pattern, filepath)
+        # if tmp_list == []:
+        #     err.set_fail('Could not find {}'.format(pattern))
+        #     raise IOError
+        # else:
+        #     efi_bootloader = tmp_list[0]
+        efi_bootloader = ''
 
+        # Find AOS image
         pattern = product + '*.zip'
-        flash_image = find(pattern, filepath)[0]
-        if flash_image == '':
-            err.set_fail('Could not find AOS flash image')
+        tmp_list = find(pattern, filepath)
+        if tmp_list == []:
+            err.set_fail('Could not find {}'.format(pattern))
             raise IOError
+        else:
+            flash_image = tmp_list[0]
 
-        sequencer_xml = find('*cfg.xml', filepath)[0]
-        if sequencer_xml == '':
-            err.set_fail('Could not find sequencer_xml')
+        # Find XML config file
+        pattern = '*cfg.xml'
+        tmp_list = find(pattern, filepath)
+        if tmp_list == []:
+            err.set_fail('Could not find {}'.format(pattern))
             raise IOError
+        else:
+            sequencer_xml = tmp_list[0]
 
+        # Check if all the images are there
         if debug == 1:
             logging.debug(efi_bootloader)
             logging.debug(bootloader)
@@ -402,6 +414,7 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
         # raise IOError
         exit()      # Exit if required flash image is missing
 
+    # Retrieve sequence of functions to execute
     err, sequencer_list = read_sequencer_xml_file(sequencer_xml)
 
     try:
@@ -492,8 +505,7 @@ def main():
 
     # Set debug parameter from the command prompt
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--debug", type=int, default=0,
-                        help="set debug level: \"-d 0\" for NONE, \"-d 1\" for enhanced")
+    parser.add_argument("-d", "--debug", type=int, default=0, help="set debug level: \"-d 0\" for NONE, \"-d 1\" for enhanced")
     args = parser.parse_args()
 
     if args.debug == 0:
@@ -506,7 +518,7 @@ def main():
             logging.debug("The debug level is set to {}".format(debug))
 
     # Set fastboot parameter list to be extracted
-    param_list = ['product', 'battery-voltage', 'battery-capacity', 'version-bootloader']
+    param_list = ['product', 'battery-capacity', 'battery-voltage', 'version-bootloader']
 
     try:
         # Get all connected fastboot devices
@@ -549,10 +561,36 @@ def main():
             if not error_dict[device].error_flag:
                 if debug == 1:
                     logging.debug('Device {} flashed successfully, rebooting...'.format(device))
-                print('Device {} PASSED'.format(device))
+                fastboot_dev_dict[device]['fail_flag'] = 'PASS'
+                if debug is 1:
+                    print('Device {} PASSED'.format(device))
                 fastboot_reboot_to_idle(device, debug=debug)
             else:
-                print('Device {} FAILED'.format(device))
+                fastboot_dev_dict[device]['fail_flag'] = 'FAIL'
+                if debug is 1:
+                    print('Device {} FAILED'.format(device))
+
+        ############### Generate Final report ###############
+        # Print report header
+        print('-' * 113)
+        print("| {:<2} | {:<16} | {:<12}| {:<18}| {:<18}| {:<23} | {:<4} |"
+              .format('Seq', 'Serial Number', 'Product', 'Battery Capacity', 'Battery Voltage', 'Bootloader Version',
+                      'P/F'))
+        print('-' * 113)
+
+        idx = 1
+        k = 0
+        for device in fastboot_dev_dict:
+            print("|{:<4} | {:<16} | {:<11} | {:<18}| {:<18}| {:<22} | {:<4} |"
+                  .format(idx, device,
+                          fastboot_dev_dict[device][param_list[0]],
+                          fastboot_dev_dict[device][param_list[1]],
+                          fastboot_dev_dict[device][param_list[2]],
+                          fastboot_dev_dict[device][param_list[3]],
+                          fastboot_dev_dict[device]['fail_flag']))
+            idx += 1
+        print('-' * 113)
+        ######################################################
 
     except IOError:
         logging.debug('{}'.format(err.error_string))
