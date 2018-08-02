@@ -1,3 +1,4 @@
+from __future__ import print_function
 __author__ = 'Vadim Blaker'
 __copyright__ = 'Verifone 2018'
 __version__ = '0.0.0'
@@ -265,35 +266,49 @@ def fastboot_reboot_to_idle(fastboot_device, time_out=60, debug=0):
     return err
 
 
-def fastboot_flash_efi_bootloader(fastboot_device, efi_bootloader, time_out=60, debug=0):
+def fastboot_flash_bootloader(fastboot_device, bootloader, time_out=60, debug=0):
     err = Error()
+    err.set_pass()
     try:
-        cmd = ["fastboot", "-s", fastboot_device, "boot", efi_bootloader]
-        response = subprocess.check_output(cmd)
-        if debug == 1:
-            logging.debug('Flashing {} '.format(efi_bootloader))
-        time.sleep(1)
+        cmd = ["fastboot", "-s", fastboot_device, "flash", "bootloader", bootloader]
+        logging.debug('Flashing {} bootloader image into fastboot device {}'.format(bootloader, fastboot_device))
+
+        # Start the process
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         i = 0
-        result = []
-        while i < time_out and (fastboot_device not in result):
-            err, result = get_fastboot_devices()
+        status = None
+        while i < time_out and status is None:
+            status = process.poll()
             time.sleep(1)
             i += 1
 
-        if i >= time_out:
-            logging.debug('Device {} EFI bootloader flash timed out, exiting...'.format(fastboot_device))
-            err.set_fail('Device {} EFI bootloader flash timed out, exiting...'.format(fastboot_device))
-        elif len(response) != 0:
-            raise IOError('Fastboot EFI bootloader error!')
-        else:
-            if debug == 1:
-                logging.debug('Device {} rebooted in {} seconds'.format(fastboot_device, i))
-            err.set_pass()
+        stdout, stderr = process.communicate()
+        # print('Exit status {} (0 = SUCCESS)'.format(status))
+
+        if debug == 1:
+            logging.debug('Completed device {} bootloader flash in {} seconds'.format(fastboot_device, i))
+
+        if i > time_out:
+            print('Flashing device {} timed out'.format(fastboot_device))
+            err.set_fail('Flashing device {} timed out'.format(fastboot_device))
+            logging.debug('Flashing device {} timed out'.format(fastboot_device))
+            raise IOError
+
+        if "Finished" not in stderr or status is not 0:
+            print('Flashing device {} was not completed successfully'.format(fastboot_device))
+            err.set_fail('Flashing device {} was not completed successfully, returned status  '
+                         '= {}'.format(fastboot_device, status))
+            logging.debug('Flashing device {} was not completed successfully'.format(fastboot_device))
+            raise IOError
+
+        print('Completed device {} flash in {} seconds'.format(fastboot_device, i))
+
+        if debug == 1:
+            logging.debug(stderr)
 
     except IOError:
-        print('Fastboot EFI bootloader error for device {}'.format(fastboot_device))
-        err.set_fail('Fastboot EFI bootloader error for device {}'.format(fastboot_device))
+        logging.debug('Fastboot error for device {}'.format(fastboot_device))
 
     return err
 
@@ -313,6 +328,12 @@ def fastboot_flash_aos_image(fastboot_device, flash_image, debug=0):
         i = 0
         status = None
         while i < time_out and status is None:
+            # Print progress bar
+            sys.stdout.write('\r')
+            # the exact output you're looking for:
+            print("[%-20s] %.2f%%" % ('#' * i, i * 100 / 85), end=''),
+            sys.stdout.flush()
+
             status = process.poll()
             time.sleep(1)
             i += 1
@@ -426,12 +447,12 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
                 err = fastboot_reboot_bootloader(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_reboot_to_idle':
                 if debug == 1:
-                    logging.debug('Envoking fastboot_flash_efi_bootloader')
+                    logging.debug('Envoking fastboot_reboot_to_idle')
                 err = fastboot_reboot_to_idle(fastboot_device, debug=debug)
-            elif sequencer_list[i] == 'fastboot_flash_efi_bootloader':
+            elif sequencer_list[i] == 'fastboot_flash_bootloader':
                 if debug == 1:
-                    logging.debug('Envoking fastboot_flash_efi_bootloader')
-                err = fastboot_flash_efi_bootloader(fastboot_device, efi_bootloader, debug=debug)
+                    logging.debug('Envoking fastboot_flash_bootloader')
+                err = fastboot_flash_bootloader(fastboot_device, bootloader, debug=debug)
             elif sequencer_list[i] == 'get_fastboot_devices':
                 if debug == 1:
                     logging.debug('Envoking get_fastboot_devices')
