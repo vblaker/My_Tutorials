@@ -3,6 +3,9 @@
         <item name="fastboot_reboot_bootloader">fastboot_reboot_bootloader</item>
         <item name="fastboot_flash_bootloader">fastboot_flash_bootloader</item>
         <item name="fastboot_erase_userdata">fastboot_erase_userdata</item>
-        <item name="fastboot_flash_aos_image">fastboot_flash_aos_image</item>
+        <item name="fastboot_flash_cache">fastboot_flash_cache</item>
+        <item name="fastboot_flash_recovery">fastboot_flash_recovery</item>
+        <item name="fastboot_flash_boot">fastboot_flash_boot</item>
+        <item name="fastboot_flash_system">fastboot_flash_system</item>
     </items>
 </data>

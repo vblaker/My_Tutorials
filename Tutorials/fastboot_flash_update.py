@@ -80,17 +80,53 @@ def read_flash_image_filenames(filepath, product, debug=0):
 
         # Find AOS image
         pattern = product + '*.zip'
-        tmp_list = find(pattern, filepath)
-        if tmp_list == []:
+        tmp_list = find(pattern, os.path.dirname(bootloader))
+        if tmp_list is []:
             err.set_fail('Could not find {}'.format(pattern))
             raise IOError
         else:
             flash_image = tmp_list[0]
 
+        # Find recovery image
+        pattern = 'recovery.img'
+        tmp_list = find(pattern, os.path.dirname(bootloader))
+        if tmp_list is []:
+            err.set_fail('Could not find {}'.format(pattern))
+            raise IOError
+        else:
+            recovery_image = tmp_list[0]
+
+        # Find cache image
+        pattern = 'cache.img'
+        tmp_list = find(pattern, os.path.dirname(bootloader))
+        if tmp_list is []:
+            err.set_fail('Could not find {}'.format(pattern))
+            raise IOError
+        else:
+            cache_image = tmp_list[0]
+
+        # Find boot image
+        pattern = 'boot.img'
+        tmp_list = find(pattern, os.path.dirname(bootloader))
+        if tmp_list is []:
+            err.set_fail('Could not find {}'.format(pattern))
+            raise IOError
+        else:
+            boot_image = tmp_list[0]
+
+        # Find system image
+        pattern = 'system.img'
+        tmp_list = find(pattern, os.path.dirname(bootloader))
+        if tmp_list is []:
+            err.set_fail('Could not find {}'.format(pattern))
+            raise IOError
+        else:
+            system_image = tmp_list[0]
+
         # Find XML config file
         pattern = '*cfg.xml'
         tmp_list = find(pattern, filepath)
-        if tmp_list == []:
+        if tmp_list is []:
             err.set_fail('Could not find {}'.format(pattern))
             raise IOError
         else:
@@ -101,6 +137,10 @@ def read_flash_image_filenames(filepath, product, debug=0):
             logging.debug(efi_bootloader)
             logging.debug(bootloader)
             logging.debug(flash_image)
+            logging.debug(recovery_image)
+            logging.debug(cache_image)
+            logging.debug(boot_image)
+            logging.debug(system_image)
             err.set_pass()
 
         # Raise an exception and pass the error message
@@ -114,8 +154,12 @@ def read_flash_image_filenames(filepath, product, debug=0):
         bootloader = ''
         flash_image = ''
         sequencer_xml = ''
+        recovery_image = ''
+        cache_image = ''
+        boot_image = ''
+        system_image = ''
 
-    return err, efi_bootloader, bootloader, flash_image, sequencer_xml
+    return err, efi_bootloader, bootloader, flash_image, sequencer_xml, recovery_image, cache_image, boot_image, system_image
 
 
 def read_sequencer_xml_file(filename, debug=0):
@@ -313,7 +357,7 @@ def fastboot_flash_bootloader(fastboot_device, bootloader, time_out=60, debug=0)
     return err
 
 
-def fastboot_flash_aos_image(fastboot_device, flash_image, debug=0):
+def fastboot_flash_update_aos_image(fastboot_device, flash_image, debug=0):
     time_out = 120
     err = Error()
     err.set_pass()
@@ -415,6 +459,48 @@ def fastboot_erase_userdata(fastboot_device, time_out=60, debug=0):
     return err
 
 
+def fastboot_flash_partition(fastboot_device, partition_image, partition, time_out=60, debug=0):
+    err = Error()
+    try:
+        cmd = ["fastboot", "-s", fastboot_device, "flash", partition, partition_image]
+        response = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
+        logging.debug('Flashing partition {} on {} device'.format(partition, fastboot_device))
+
+        # Check fastboot command response
+        i = 0
+        result = []
+        if 'system' not in partition:
+            while i < time_out and ("OKAY" not in response) and (fastboot_device not in result):
+                err, result = get_fastboot_devices()
+                i += 1
+        else:
+            while i < time_out and ("OKAY" not in response):
+                err, result = get_fastboot_devices()
+                i += 1
+        time.sleep(1)
+
+        if i >= time_out:
+            logging.debug('Device {} timed out to flash partition {} in {} seconds, exiting...'
+                          .format(partition, fastboot_device, i))
+            raise IOError('Fastboot erase userdata timeout error!')
+        elif len(response) == 0:
+            if debug == 1:
+                logging.debug('No response returned from the {} device'.format(fastboot_device))
+                raise IOError('Fastboot erase userdata error!')
+        else:
+            err.set_pass()
+            if debug == 1:
+                logging.debug('Flashed {} device in {} seconds'.format(fastboot_device, i))
+
+    except IOError as e:
+        logging.debug(e.args)
+        logging.debug('Fastboot flash error for device: {}, partition: {}'.format(fastboot_device, partition))
+        # Build error reporting
+        err.set_fail('Failed to flash partition {}'.format(partition))
+
+    return err
+
+
 def update_worker(fastboot_device, product, error_dict, debug=0):
     """thread update worker function"""
 
@@ -428,7 +514,8 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
         err.set_pass()
 
     file_path = os.getcwd()
-    err, efi_bootloader, bootloader, flash_image, sequencer_xml = read_flash_image_filenames(file_path, product, debug=debug)
+    err, efi_bootloader, bootloader, flash_image, sequencer_xml, recovery_image, cache_image, boot_image, system_image\
+        = read_flash_image_filenames(file_path, product, debug=debug)
 
     if err.error_flag:
         error_dict[fastboot_device] = err
@@ -461,10 +548,26 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
                 if debug == 1:
                     logging.debug('Envoking fastboot_erase_userdata')
                 err = fastboot_erase_userdata(fastboot_device, debug=debug)
-            elif sequencer_list[i] == 'fastboot_flash_aos_image':
+            elif sequencer_list[i] == 'fastboot_flash_recovery':
                 if debug == 1:
-                    logging.debug('Envoking fastboot_flash_aos_image')
-                err = fastboot_flash_aos_image(fastboot_device, flash_image, debug=debug)
+                    logging.debug('Envoking fastboot_flash_recovery')
+                err = fastboot_flash_partition(fastboot_device, recovery_image, partition='recovery', debug=debug)
+            elif sequencer_list[i] == 'fastboot_flash_cache':
+                if debug == 1:
+                    logging.debug('Envoking fastboot_flash_cache')
+                err = fastboot_flash_partition(fastboot_device, cache_image, partition='cache', debug=debug)
+            elif sequencer_list[i] == 'fastboot_flash_boot':
+                if debug == 1:
+                    logging.debug('Envoking fastboot_flash_boot')
+                err = fastboot_flash_partition(fastboot_device, boot_image, partition='boot', debug=debug)
+            elif sequencer_list[i] == 'fastboot_flash_system':
+                if debug == 1:
+                    logging.debug('Envoking fastboot_flash_system')
+                err = fastboot_flash_partition(fastboot_device, system_image, partition='system', debug=debug)
+            elif sequencer_list[i] == 'fastboot_flash_update_aos_image':
+                if debug == 1:
+                    logging.debug('Envoking fastboot_flash_update_aos_image')
+                err = fastboot_flash_update_aos_image(fastboot_device, flash_image, debug=debug)
 
             else:
                 logging.debug('Unknown function call {}'.format(sequencer_list[i]))
