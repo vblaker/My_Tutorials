@@ -5,7 +5,6 @@ __version__ = '0.0.0'
 __email__ = 'VadimB1@verifone.com'
 __status__ = 'Pre-production'
 
-
 import os
 import logging
 import time
@@ -459,44 +458,62 @@ def fastboot_erase_userdata(fastboot_device, time_out=60, debug=0):
     return err
 
 
-def fastboot_flash_partition(fastboot_device, partition_image, partition, time_out=60, debug=0):
+def fastboot_flash_partition(fastboot_device, partition_image, partition, time_out=120, debug=0):
     err = Error()
+    err.set_pass()
+
+    if partition is 'system':
+        time_to_flash = 64
+        poll_interval = 1
+    else:
+        time_to_flash = 1
+        poll_interval = 1
     try:
         cmd = ["fastboot", "-s", fastboot_device, "flash", partition, partition_image]
-        response = subprocess.check_output(cmd, stderr=subprocess.STDOUT, shell=True)
-        logging.debug('Flashing partition {} on {} device'.format(partition, fastboot_device))
+        logging.debug('Flashing {} image into fastboot device {}'.format(partition_image, fastboot_device))
 
-        # Check fastboot command response
+        # Start the process
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
         i = 0
-        result = []
-        if 'system' not in partition:
-            while i < time_out and ("OKAY" not in response) and (fastboot_device not in result):
-                err, result = get_fastboot_devices()
-                i += 1
-        else:
-            while i < time_out and ("OKAY" not in response):
-                err, result = get_fastboot_devices()
-                i += 1
-        time.sleep(1)
+        status = None
+        while i < time_out / poll_interval and status is None:
+            # Print progress bar
+            sys.stdout.write('\r')
+            # the exact output you're looking for:
+            print("[%-20s] %.2f%%" % ('#' * i, i * poll_interval * 100 / time_to_flash), end=''),
+            sys.stdout.flush()
 
-        if i >= time_out:
-            logging.debug('Device {} timed out to flash partition {} in {} seconds, exiting...'
-                          .format(partition, fastboot_device, i))
-            raise IOError('Fastboot erase userdata timeout error!')
-        elif len(response) == 0:
-            if debug == 1:
-                logging.debug('No response returned from the {} device'.format(fastboot_device))
-                raise IOError('Fastboot erase userdata error!')
-        else:
-            err.set_pass()
-            if debug == 1:
-                logging.debug('Flashed {} device in {} seconds'.format(fastboot_device, i))
+            status = process.poll()
+            time.sleep(poll_interval)
+            i += 1
 
-    except IOError as e:
-        logging.debug(e.args)
-        logging.debug('Fastboot flash error for device: {}, partition: {}'.format(fastboot_device, partition))
-        # Build error reporting
-        err.set_fail('Failed to flash partition {}'.format(partition))
+        stdout, stderr = process.communicate()
+        # print('Exit status {} (0 = SUCCESS)'.format(status))
+
+        if debug == 1:
+            logging.debug('Completed device {} flash in {} seconds'.format(fastboot_device, i*poll_interval))
+
+        if i > time_out / poll_interval:
+            print('Flashing device {} timed out'.format(fastboot_device))
+            err.set_fail('Flashing device {} timed out'.format(fastboot_device))
+            logging.debug('Flashing device {} timed out'.format(fastboot_device))
+            raise IOError
+
+        if "Finished" not in stderr or "OKAY" not in stderr or status is not 0:
+            print('Flashing device {} was not completed successfully'.format(fastboot_device))
+            err.set_fail('Flashing device {} was not completed successfully, returned status  '
+                         '= {}'.format(fastboot_device, status))
+            logging.debug('Flashing device {} was not completed successfully'.format(fastboot_device))
+            raise IOError
+
+        print('Completed device {} flash in {} seconds'.format(fastboot_device, i * poll_interval))
+
+        if debug == 1:
+            logging.debug(stderr)
+
+    except IOError:
+        logging.debug('Fastboot error for device {}'.format(fastboot_device))
 
     return err
 
@@ -580,7 +597,7 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
 
     except IOError as e:
         logging.debug('Error message: {}'.format(err.error_string))
-        logging.debug('Unexpected exception in the thread - exiting... \n{}'.format(e.args))
+        logging.debug('Unexpected exception in the thread {} \nExiting...\n'.format(err.error_string))
         error_dict[fastboot_device] = err
 
 
