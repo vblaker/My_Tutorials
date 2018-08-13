@@ -20,6 +20,7 @@ logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-
 
 
 class Error:
+    # New ERROR class to pass error messages through execution flow
     def __init__(self, error_code=1, error_string='Failed', error_flag=True):
         self.error_code = error_code
         self.error_string = error_string
@@ -55,8 +56,6 @@ def read_flash_image_filenames(filepath, product, debug=0):
                 print('ERROR: File {} not found'.format(pattern))
                 result = []
             return result
-
-        # Get the first occurrence on the returned results list
 
         # Find bootloader
         pattern = product + '*bootloader'
@@ -162,7 +161,10 @@ def read_flash_image_filenames(filepath, product, debug=0):
 
 
 def read_sequencer_xml_file(filename, debug=0):
+    # Build error reporting
     err = Error()
+    err.set_pass()
+
     sequencer_list = []
     try:
         xmldoc = minidom.parse(filename)
@@ -171,9 +173,6 @@ def read_sequencer_xml_file(filename, debug=0):
             sequencer_list.append(str(item.attributes['name'].value))
         if debug == 1:
             logging.debug('Loaded sequencer from XML file: {}'.format(sequencer_list))
-
-        # Build error reporting
-        err.set_pass()
 
     except IOError:
         if debug == 1:
@@ -711,7 +710,10 @@ def main():
                 if debug is 1:
                     print('Device {} FAILED'.format(device))
 
-        ############### Generate Final report ###############
+        ######################################################
+        ############### Generate Final report ################
+        ######################################################
+
         # Print report header
         print('-' * 113)
         print("| {:<2} | {:<16} | {:<12}| {:<18}| {:<18}| {:<23} | {:<4} |"
