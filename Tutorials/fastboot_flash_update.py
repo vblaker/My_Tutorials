@@ -879,8 +879,8 @@ def main():
 
     except IOError:
         logging.debug('{}'.format(err.error_string))
-        write_to_datalog(err)
-
+        write_to_datalog('Device {}: Error Flag: {}, Error String: {}'
+                         .format(item, error_dict[item].error_flag, error_dict[item].error_string))
 
 if __name__ == "__main__":
     main()
