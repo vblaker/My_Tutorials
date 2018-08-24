@@ -1,19 +1,22 @@
 from __future__ import print_function
 __author__ = 'Vadim Blaker'
-__copyright__ = 'Verifone 2018'
-__version__ = '0.0.0'
+__copyright__ = 'Verifone 2018, All rights reserved'
+__version__ = '1.0.0'
 __email__ = 'VadimB1@verifone.com'
 __status__ = 'Pre-production'
 
 import os
 import logging
 import time
+import datetime
 import fnmatch
 import threading
 import subprocess
 import sys
 from xml.dom import minidom
 import argparse
+import tarfile
+import zipfile
 
 
 logging.basicConfig(level=logging.DEBUG, format='[%(levelname)s] (%(threadName)-10s) %(message)s',)
@@ -42,6 +45,7 @@ class Error:
 def read_flash_image_filenames(filepath, product, debug=0):
     err = Error()
     err.set_pass()
+    image_dict = {}
 
     try:
         # Recursive search for files matching patterns
@@ -65,6 +69,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             bootloader = tmp_list[0]
+            image_dict['bootloader'] = bootloader
 
         # Find efi loader
         # pattern = product.replace('_', '') + '*loader.efi'
@@ -84,6 +89,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             flash_image = tmp_list[0]
+            image_dict['flash_image'] = flash_image
 
         # Find recovery image
         pattern = 'recovery.img'
@@ -93,6 +99,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             recovery_image = tmp_list[0]
+            image_dict['recovery_image'] = recovery_image
 
         # Find cache image
         pattern = 'cache.img'
@@ -102,6 +109,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             cache_image = tmp_list[0]
+            image_dict['cache_image'] = cache_image
 
         # Find boot image
         pattern = 'boot.img'
@@ -111,6 +119,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             boot_image = tmp_list[0]
+            image_dict['boot_image'] = boot_image
 
         # Find system image
         pattern = 'system.img'
@@ -120,6 +129,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             system_image = tmp_list[0]
+            image_dict['system_image'] = system_image
 
         # Find XML config file
         pattern = '*cfg.xml'
@@ -129,16 +139,30 @@ def read_flash_image_filenames(filepath, product, debug=0):
             raise IOError
         else:
             sequencer_xml = tmp_list[0]
+            image_dict['sequencer_xml'] = sequencer_xml
 
         # Check if all the images are there
         if debug == 1:
             logging.debug(efi_bootloader)
+
             logging.debug(bootloader)
+            write_to_datalog(bootloader)
+
             logging.debug(flash_image)
+            write_to_datalog(flash_image)
+
             logging.debug(recovery_image)
+            write_to_datalog(recovery_image)
+
             logging.debug(cache_image)
+            write_to_datalog(cache_image)
+
             logging.debug(boot_image)
+            write_to_datalog(boot_image)
+
             logging.debug(system_image)
+            write_to_datalog(system_image)
+
             err.set_pass()
 
         # Raise an exception and pass the error message
@@ -173,10 +197,12 @@ def read_sequencer_xml_file(filename, debug=0):
             sequencer_list.append(str(item.attributes['name'].value))
         if debug == 1:
             logging.debug('Loaded sequencer from XML file: {}'.format(sequencer_list))
+            write_to_datalog('Loaded sequencer from XML file: {}'.format(sequencer_list))
 
     except IOError:
         if debug == 1:
             logging.debug('Cannot open file ' + filename + ' for reading')
+            write_to_datalog('Cannot open file ' + filename + ' for reading')
         # Build error reporting
         err.set_fail('Cannot open file ' + filename + ' for reading')
 
@@ -195,6 +221,7 @@ def get_fastboot_devices(debug=0):
         fastboot_devices_list = (fastboot_output.split('\r\n'))
         if debug == 1:
             logging.debug('{} detected devices: {}'.format(len(fastboot_devices_list), fastboot_devices_list))
+            write_to_datalog('{} detected devices: {}'.format(len(fastboot_devices_list), fastboot_devices_list))
         err.set_pass()
 
     except IOError:
@@ -223,12 +250,14 @@ def get_adb_devices(debug=0):
             if debug == 1:
                 logging.debug('Detected devices:', adb_devices_list)
                 print('{} devices detected: {}'.format(len(adb_devices_list), adb_devices_list))
+                write_to_datalog('{} devices detected: {}'.format(len(adb_devices_list), adb_devices_list))
 
             err.set_pass()
 
         except IOError as e:
             if debug == 1:
                 print('Failed to get adb devices!\n {}'.format(e.args))
+                write_to_datalog('Failed to get adb devices!\n {}'.format(e.args))
             err.set_fail('No adb devices detected!')
             adb_devices_list = []
 
@@ -242,6 +271,7 @@ def fastboot_reboot_bootloader(fastboot_device, time_out=60, debug=0):
         response = os.popen(cmd).readlines()
         if debug == 1:
             logging.debug('Rebooting {} to bootloader'.format(fastboot_device))
+            write_to_datalog('Rebooting {} to bootloader'.format(fastboot_device))
 
         i = 0
         result = []
@@ -255,6 +285,7 @@ def fastboot_reboot_bootloader(fastboot_device, time_out=60, debug=0):
         else:
             if debug == 1:
                 logging.debug('Device {} rebooted in {} seconds'.format(fastboot_device, i))
+                write_to_datalog('Device {} rebooted in {} seconds'.format(fastboot_device, i))
 
         if len(response) != 0:
             raise IOError('Fastboot reboot-bootloader error!')
@@ -276,6 +307,7 @@ def fastboot_reboot_to_idle(fastboot_device, time_out=60, debug=0):
         cmd = ["fastboot", "-s", fastboot_device, "reboot"]
         if debug == 1:
             logging.debug('Rebooting {} fastboot device to idle...'.format(fastboot_device))
+            write_to_datalog('Rebooting {} fastboot device to idle...'.format(fastboot_device))
 
         # Start the process
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -292,7 +324,10 @@ def fastboot_reboot_to_idle(fastboot_device, time_out=60, debug=0):
         # Check if command errored out
         if ("Finished" in stderr) and ("Rebooting" in stderr):
             if debug == 1:
+                write_to_datalog(stderr)
                 logging.debug('Device {} rebooting to idle'.format(fastboot_device))
+                write_to_datalog('Device {} rebooting to idle'.format(fastboot_device))
+
             # print('Exit status: {} (0 = PASS)'.format(status))
         else:
             print('Exit status: {} (FAILED)'.format(status))
@@ -330,6 +365,7 @@ def fastboot_flash_bootloader(fastboot_device, bootloader, time_out=60, debug=0)
 
         if debug == 1:
             logging.debug('Completed device {} bootloader flash in {} seconds'.format(fastboot_device, i))
+            write_to_datalog('Completed device {} bootloader flash in {} seconds'.format(fastboot_device, i))
 
         if i > time_out:
             print('Flashing device {} timed out'.format(fastboot_device))
@@ -337,7 +373,7 @@ def fastboot_flash_bootloader(fastboot_device, bootloader, time_out=60, debug=0)
             logging.debug('Flashing device {} timed out'.format(fastboot_device))
             raise IOError
 
-        if "Finished" not in stderr or status is not 0:
+        if "Finished" not in stderr or status != 0:
             print('Flashing device {} was not completed successfully'.format(fastboot_device))
             err.set_fail('Flashing device {} was not completed successfully, returned status  '
                          '= {}'.format(fastboot_device, status))
@@ -348,9 +384,11 @@ def fastboot_flash_bootloader(fastboot_device, bootloader, time_out=60, debug=0)
 
         if debug == 1:
             logging.debug(stderr)
+            write_to_datalog(stderr)
 
     except IOError:
         logging.debug('Fastboot error for device {}'.format(fastboot_device))
+        write_to_datalog('Fastboot error for device {}'.format(fastboot_device))
 
     return err
 
@@ -385,6 +423,7 @@ def fastboot_flash_update_aos_image(fastboot_device, flash_image, debug=0):
 
         if debug == 1:
             logging.debug('Completed device {} flash in {} seconds'.format(fastboot_device, i))
+            write_to_datalog('Completed device {} flash in {} seconds'.format(fastboot_device, i))
 
         if i > time_out:
             print('Flashing device {} timed out'.format(fastboot_device))
@@ -397,15 +436,19 @@ def fastboot_flash_update_aos_image(fastboot_device, flash_image, debug=0):
             err.set_fail('Flashing device {} was not completed successfully, returned status  '
                          '= {}'.format(fastboot_device, status))
             logging.debug('Flashing device {} was not completed successfully'.format(fastboot_device))
+            write_to_datalog('Flashing device {} was not completed successfully'.format(fastboot_device))
+
             raise IOError
 
         print('Completed device {} flash in {} seconds'.format(fastboot_device, i))
 
         if debug == 1:
             logging.debug(stderr)
+            write_to_datalog(stderr)
 
     except IOError:
         logging.debug('Fastboot error for device {}'.format(fastboot_device))
+        write_to_datalog('Fastboot error for device {}'.format(fastboot_device))
 
     return err
 
@@ -442,11 +485,14 @@ def fastboot_erase_userdata(fastboot_device, time_out=60, debug=0):
         elif len(response) == 0:
             if debug == 1:
                 logging.debug('No response returned from the {} device'.format(fastboot_device))
+                write_to_datalog('No response returned from the {} device'.format(fastboot_device))
                 raise IOError('Fastboot erase userdata error!')
         else:
             err.set_pass()
             if debug == 1:
                 logging.debug('Erased {} device in {} seconds'.format(fastboot_device, i))
+                write_to_datalog(response)
+                write_to_datalog('Erased {} device in {} seconds'.format(fastboot_device, i))
 
     except IOError as e:
         logging.debug(e.args)
@@ -461,8 +507,8 @@ def fastboot_flash_partition(fastboot_device, partition_image, partition, time_o
     err = Error()
     err.set_pass()
 
-    if partition is 'system':
-        time_to_flash = 64
+    if partition == 'system':
+        time_to_flash = 80
         poll_interval = 1
     else:
         time_to_flash = 1
@@ -492,28 +538,32 @@ def fastboot_flash_partition(fastboot_device, partition_image, partition, time_o
 
         if debug == 1:
             logging.debug('Completed device {} flash in {} seconds'.format(fastboot_device, i*poll_interval))
+            write_to_datalog('Completed device {} flash in {} seconds'.format(fastboot_device, i*poll_interval))
 
         if i > time_out / poll_interval:
             print('Flashing device {} timed out'.format(fastboot_device))
             err.set_fail('Flashing device {} timed out'.format(fastboot_device))
             logging.debug('Flashing device {} timed out'.format(fastboot_device))
+            write_to_datalog('Flashing device {} timed out'.format(fastboot_device))
             raise IOError
 
-        if "Finished" not in stderr or "OKAY" not in stderr or status is not 0:
+        if "Finished" not in stderr or "OKAY" not in stderr or status != 0:
             print('Flashing device {} was not completed successfully'.format(fastboot_device))
             err.set_fail('Flashing device {} was not completed successfully, returned status  '
                          '= {}'.format(fastboot_device, status))
             logging.debug('Flashing device {} was not completed successfully'.format(fastboot_device))
+            write_to_datalog('Flashing device {} was not completed successfully'.format(fastboot_device))
             raise IOError
 
         print('Completed device {} flash in {} seconds'.format(fastboot_device, i * poll_interval))
 
         if debug == 1:
             logging.debug(stderr)
+            write_to_datalog(stderr)
 
     except IOError:
         logging.debug('Fastboot error for device {}'.format(fastboot_device))
-
+        write_to_datalog('Fastboot error for device {}'.format(fastboot_device))
     return err
 
 
@@ -521,11 +571,14 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
     """thread update worker function"""
 
     err = Error()
+    if product == 'MSM8909_CARBON_E500':
+        product = 'Carbon_CM5'
 
-    if (product != 'Carbon_8') and (product != 'Carbon_10'):
+    if (product != 'Carbon_8') and (product != 'Carbon_10') and (product != 'Carbon_CM5'):
         err.set_fail('Unknown product, exiting...')
         logging.debug('Unknown product {}, exiting...'.format(product))
-        exit()
+        raise IOError
+
     else:
         err.set_pass()
 
@@ -547,46 +600,57 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
             if sequencer_list[i] == 'fastboot_reboot_bootloader':
                 if debug == 1:
                     logging.debug('Envoking fastboot_reboot_bootloader')
+                    write_to_datalog('Envoking fastboot_reboot_bootloader')
                 err = fastboot_reboot_bootloader(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_reboot_to_idle':
                 if debug == 1:
                     logging.debug('Envoking fastboot_reboot_to_idle')
+                    write_to_datalog('Envoking fastboot_reboot_to_idle')
                 err = fastboot_reboot_to_idle(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_bootloader':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_bootloader')
+                    write_to_datalog('Envoking fastboot_flash_bootloader')
                 err = fastboot_flash_bootloader(fastboot_device, bootloader, debug=debug)
             elif sequencer_list[i] == 'get_fastboot_devices':
                 if debug == 1:
                     logging.debug('Envoking get_fastboot_devices')
+                    write_to_datalog('Envoking get_fastboot_devices')
                 err = fastboot_reboot_bootloader(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_erase_userdata':
                 if debug == 1:
                     logging.debug('Envoking fastboot_erase_userdata')
+                    write_to_datalog('Envoking fastboot_erase_userdata')
                 err = fastboot_erase_userdata(fastboot_device, debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_recovery':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_recovery')
+                    write_to_datalog('Envoking fastboot_flash_recovery')
                 err = fastboot_flash_partition(fastboot_device, recovery_image, partition='recovery', debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_cache':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_cache')
+                    write_to_datalog('Envoking fastboot_flash_cache')
                 err = fastboot_flash_partition(fastboot_device, cache_image, partition='cache', debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_boot':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_boot')
+                    write_to_datalog('Envoking fastboot_flash_boot')
                 err = fastboot_flash_partition(fastboot_device, boot_image, partition='boot', debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_system':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_system')
+                    write_to_datalog('Envoking fastboot_flash_system')
                 err = fastboot_flash_partition(fastboot_device, system_image, partition='system', debug=debug)
             elif sequencer_list[i] == 'fastboot_flash_update_aos_image':
                 if debug == 1:
                     logging.debug('Envoking fastboot_flash_update_aos_image')
+                    write_to_datalog('Envoking fastboot_flash_update_aos_image')
                 err = fastboot_flash_update_aos_image(fastboot_device, flash_image, debug=debug)
 
             else:
                 logging.debug('Unknown function call {}'.format(sequencer_list[i]))
+                write_to_datalog('Unknown function call {}'.format(sequencer_list[i]))
                 exit()
 
             if err.error_flag:
@@ -597,7 +661,9 @@ def update_worker(fastboot_device, product, error_dict, debug=0):
     except IOError as e:
         logging.debug('Error message: {}'.format(err.error_string))
         logging.debug('Unexpected exception in the thread {} \nExiting...\n'.format(err.error_string))
+        write_to_datalog('Unexpected exception in the thread {} \nExiting...\n'.format(err.error_string))
         error_dict[fastboot_device] = err
+        write_to_datalog(error_dict)
 
 
 def fastboot_getvar(fastboot_device, param):
@@ -639,23 +705,79 @@ def get_fastboot_dev_params(devices, param_list):
     return fastboot_dev_dict
 
 
+def unzip_tar_image(flash_image):
+    err = Error()
+    try:
+        tar_ref = tarfile.open(flash_image, 'r')
+        untar_path, tar_file = os.path.split(flash_image)
+        for item in tar_ref:
+            tar_ref.extract(item, untar_path)
+            if item.path.endswith('zip'):
+                unzip_flash_image(os.path.join(untar_path, item.path))
+        err.set_pass()
+    except IOError as e:
+        err.set_fail('Failed to unzip {} file:'.format(flash_image))
+    return err
+
+
+def unzip_flash_image(flash_image):
+    err = Error()
+    try:
+        zip_ref = zipfile.ZipFile(flash_image, 'r')
+        unzip_path, filename = os.path.split(flash_image)
+        zip_ref.extractall(unzip_path)
+        zip_ref.close()
+        err.set_pass()
+    except IOError as e:
+        err.set_fail('Failed to unzip {} file:'.format(flash_image))
+    return err
+
+
+def write_to_datalog(string):
+    with open('datalog.txt', 'a') as datalog_file:
+        datalog_file.write(string + '\n')
+
+
 def main():
     err = Error()
     err.set_pass()
 
     # Set debug parameter from the command prompt
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--debug", type=int, default=0, help="set debug level: \"-d 0\" for NONE, \"-d 1\" for enhanced")
+    parser.add_argument("-v", "--version", help="display version of the update utility and exit", action="store_true")
+    parser.add_argument("-d", "--debug", help="set debugging output ON", action="store_true")
+
+    # parser.add_argument("-c", "--prod_config", default='c8_10',
+    #                   help="product config: \"-c c8_10\" for Carbon 8/10, \"-c cm5\" for CM5")
     args = parser.parse_args()
 
-    if args.debug == 0:
+    start_time = datetime.datetime.now().strftime('%Y-%b-%d %H:%M:%S:%f')
+
+    if args.version:
+        print('#'*59, end='\n')
+        print('###\t Flash Utility Version:\t{}\t\t\t###'.format(__version__, end='\n'))
+        print('### \t {}\t\t###'.format(__copyright__, end='\n'))
+        print('###\t Status:\t{}\t\t\t###'.format(__status__, end='\n'))
+        print('###\t Author:\t{}\t\t\t###'.format(__author__, end='\n'))
+        print('###\t Current Time:\t{}\t###'.format(start_time, end='\n'))
+        print('#'*59, end='\n')
+        exit()
+
+    if args.debug is False:
         debug = 0
     else:
         debug = 1
-        if args.debug is not 1:
-            logging.debug('Unsupported debug level {}, defaulting to 1'.format(args.debug))
-        else:
-            logging.debug("The debug level is set to {}".format(debug))
+
+    logging.debug('The debug level is set to {}'.format(debug))
+    if debug == 1:
+        write_to_datalog('The debug level is set to {}'.format(debug))
+        write_to_datalog('#'*59 + '\n')
+        write_to_datalog('###\t Flash Utility Version:\t{}\t\t\t###'.format(__version__, end='\n'))
+        write_to_datalog('### \t {}\t\t###'.format(__copyright__, end='\n'))
+        write_to_datalog('###\t Status:\t{}\t\t\t###'.format(__status__, end='\n'))
+        write_to_datalog('###\t Author:\t{}\t\t\t###'.format(__author__, end='\n'))
+        write_to_datalog('###\t Current Time:\t{}\t###'.format(start_time, end='\n'))
+        write_to_datalog('#'*59 + '\n')
 
     # Set fastboot parameter list to be extracted
     param_list = ['product', 'battery-capacity', 'battery-voltage', 'version-bootloader']
@@ -684,13 +806,18 @@ def main():
             t.start()
             if debug == 1:
                 logging.debug('Starting thread for serial number {}'.format(device))
+                write_to_datalog('Starting thread for serial number {}'.format(device))
 
         # Join threads  - determine if needed in this case
         for thread in threads:
             thread.join()
 
         if debug == 1:
-            print(error_dict)
+            for item in error_dict:
+                print('Device {}: Error Flag: {}, Error String: {}'
+                                 .format(item, error_dict[item].error_flag, error_dict[item].error_string))
+                write_to_datalog('Device {}: Error Flag: {}, Error String: {}'
+                                 .format(item, error_dict[item].error_flag, error_dict[item].error_string))
 
         # Get fastboot device parameters AFTER flash
         fastboot_dev_dict = get_fastboot_dev_params(devices, param_list)
@@ -701,14 +828,26 @@ def main():
             if not error_dict[device].error_flag:
                 if debug == 1:
                     logging.debug('Device {} flashed successfully, rebooting...'.format(device))
+                    write_to_datalog('Device {} flashed successfully, rebooting...'.format(device))
                 fastboot_dev_dict[device]['fail_flag'] = 'PASS'
-                if debug is 1:
+                if debug == 1:
                     print('Device {} PASSED'.format(device))
+                    write_to_datalog('Device {} PASSED'.format(device))
                 fastboot_reboot_to_idle(device, debug=debug)
             else:
                 fastboot_dev_dict[device]['fail_flag'] = 'FAIL'
-                if debug is 1:
+                if debug == 1:
                     print('Device {} FAILED'.format(device))
+                    write_to_datalog('Device {} FAILED'.format(device))
+
+        # Calculate total FLASH time
+        end_time = datetime.datetime.now().strftime('%Y-%b-%d %H:%M:%S:%f')
+        total_time = (datetime.datetime.strptime(end_time, '%Y-%b-%d %H:%M:%S:%f') -
+                      datetime.datetime.strptime(start_time, '%Y-%b-%d %H:%M:%S:%f'))
+
+        if debug == 1:
+            write_to_datalog('Total FLASH time is {}'.format(total_time))
+            logging.debug('Total FLASH time is {}'.format(total_time))
 
         ######################################################
         ############### Generate Final report ################
@@ -735,8 +874,12 @@ def main():
         print('-' * 113)
         ######################################################
 
+        # Output total flash time
+        logging.debug('Total FLASH time is {}'.format(total_time))
+
     except IOError:
         logging.debug('{}'.format(err.error_string))
+        write_to_datalog(err)
 
 
 if __name__ == "__main__":
