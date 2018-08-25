@@ -861,7 +861,6 @@ def main():
         print('-' * 113)
 
         idx = 1
-        k = 0
         for device in fastboot_dev_dict:
             print("|{:<4} | {:<16} | {:<11} | {:<18}| {:<18}| {:<22} | {:<4} |"
                   .format(idx, device,
@@ -879,8 +878,7 @@ def main():
 
     except IOError:
         logging.debug('{}'.format(err.error_string))
-        write_to_datalog('Device {}: Error Flag: {}, Error String: {}'
-                         .format(item, error_dict[item].error_flag, error_dict[item].error_string))
+
 
 if __name__ == "__main__":
     main()
