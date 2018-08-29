@@ -6,6 +6,8 @@ __email__ = 'VadimB1@verifone.com'
 __status__ = 'Pre-production'
 
 import os
+from sys import exit
+from sys import argv
 import logging
 import time
 import datetime
@@ -761,17 +763,19 @@ def main():
         print('###\t Author:\t{}\t\t\t###'.format(__author__, end='\n'))
         print('###\t Current Time:\t{}\t###'.format(start_time, end='\n'))
         print('#'*59, end='\n')
-        exit()
+        sys.exit(0)
 
     if args.debug is False:
         debug = 0
     else:
         debug = 1
 
+    logging.debug('\n\n' + '=' * 100)
     logging.debug('The debug level is set to {}'.format(debug))
     if debug == 1:
+        write_to_datalog('\n\n' + '=' * 100)
         write_to_datalog('The debug level is set to {}'.format(debug))
-        write_to_datalog('#'*59 + '\n')
+        write_to_datalog('#'*59)
         write_to_datalog('###\t Flash Utility Version:\t{}\t\t\t###'.format(__version__, end='\n'))
         write_to_datalog('### \t {}\t\t###'.format(__copyright__, end='\n'))
         write_to_datalog('###\t Status:\t{}\t\t\t###'.format(__status__, end='\n'))
@@ -879,7 +883,6 @@ def main():
 
     except IOError:
         logging.debug('{}'.format(err.error_string))
-        write_to_datalog(err)
 
 
 if __name__ == "__main__":
