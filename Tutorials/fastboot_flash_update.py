@@ -1,6 +1,6 @@
 from __future__ import print_function
 __author__ = 'Vadim Blaker'
-__copyright__ = 'Verifone 2018, All rights reserved'
+__copyright__ = 'Verifone 2019, All rights reserved'
 __version__ = '1.0.0'
 __email__ = 'VadimB1@verifone.com'
 __status__ = 'Pre-production'
