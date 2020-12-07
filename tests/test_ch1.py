@@ -4,7 +4,9 @@
 from selenium import webdriver
 
 # Optional argument, if not specified will search path
-driver = webdriver.Chrome('D:\Google Drive\Continuous Education\Python\Tutorials\selenium_drivers')
+#driver = webdriver.Chrome('D:\Google Drive\Continuous Education\Python\Tutorials\selenium_drivers')
+from selenium.webdriver.common.by import By
+
 
 def vowel_count(string):
     vowels = ["a", "e", "i", "o", "u"]
@@ -25,3 +27,17 @@ def test_last_name():
 
 def test_upper_case():
     assert vowel_count("VADIM BLAKER") == 4
+
+def test_google_search():
+    driver = webdriver.Chrome()
+
+    driver.get('https://google.com')
+    search_box = driver.find_element_by_name('q')
+
+    #driver.find_element(By.NAME, 'q').send_keys('selenium')
+    search_box.send_keys('selenium')
+
+    #driver.find_element(By.NAME, 'btnK').submit()
+    search_box.submit()
+
+    assert 'selenium' in driver.title
