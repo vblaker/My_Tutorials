@@ -1,30 +1,29 @@
 from __future__ import print_function
+from time import sleep
 import time
+import sys
 
 # status generator
 def range_with_status(total):
     """ iterate from 0 to total and show progress in console """
-    n=0
+    n = 0
     while n < total:
-        done = '#'*(n+1)
+        done = '#' * (n+1)
         todo = '-'*(total-n-1)
         s = '<{0}>'.format(done+todo)
         if not todo:
-            s+='\n'
+            s += '\n'
         if n > 0:
             s = '\r'+s
         print(s, end='')
         yield n
-        n+=1
+        n += 1
+
 
 # example for use of status generator
 for i in range_with_status(10):
     time.sleep(0.1)
 
-
-
-from time import sleep
-import sys
 
 for i in range(21):
     sys.stdout.write('\r')
