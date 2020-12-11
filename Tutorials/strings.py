@@ -28,7 +28,6 @@ for token in tokens:
             l.append(float(num))
         except ValueError:
             pass
-
 print(l)
 
 
