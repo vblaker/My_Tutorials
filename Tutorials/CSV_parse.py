@@ -2,11 +2,11 @@ import csv
 from collections import defaultdict
 import numpy as np
 import matplotlib.pyplot as plt
-import plotly.plotly as py
-import plotly.graph_objs as go
+import chart_studio.plotly as py
+import chart_studio.plotly.plotly
 
 #Define debug level
-debug = 1
+debug = 0
 
 #PD Data Center SW
 
@@ -83,7 +83,7 @@ with open('export.csv') as csvfile:
                 print('Skipping row {}'.format(row))
 
 
-#Slice off last 100 values
+# Slice off last 100 values
 VBUS_volts = VBUS_volts[-100:]
 
 for i in range(0, len(data_list)):
@@ -102,12 +102,10 @@ for i in range(0, len(data_list)):
 #print(data_dict.items())
 
 
-'''
 if debug >= 2:
     plt.plot(VBUS_volts)
     plt.ylabel('VBUS Voltage (V)')
     plt.show()
-'''
 
 if debug >= 1:
     print('The size of data is {}'.format(len(VBUS_volts)))
