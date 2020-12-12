@@ -1,6 +1,9 @@
 import platform
 import os
 import sys
+print(os.__file__)
+
+# import antigravity
 
 
 # Retrieves OS information
@@ -45,6 +48,15 @@ def os_detect(debug=0):
     return os_name, python_version, platform_architecture
 
 
+def get_curr_directory():
+    print(os.getcwd())
+    curr_dir = str(os.getcwd())
+    return curr_dir
+
+
 if __name__ == '__main__':
     os_name, python_version, platform_architecture = os_detect(debug=1)
     print(python_version, os_name, platform_architecture)
+    curr_dir = get_curr_directory()
+    print('Current dir is {}'.format(curr_dir))
+    pass
