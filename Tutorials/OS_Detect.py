@@ -54,6 +54,11 @@ def get_curr_directory():
     return curr_dir
 
 
+for dirpath, dirnames, filemanes in os.walk('.'):
+    print('Current path: ', dirpath)
+    print('Directories: ', dirnames)
+    print('Files: ', filemanes)
+
 if __name__ == '__main__':
     os_name, python_version, platform_architecture = os_detect(debug=1)
     print(python_version, os_name, platform_architecture)
