@@ -1,5 +1,6 @@
 # This example explains date manipulations
 import datetime
+import calendar
 
 # Create new object
 now = datetime.datetime.now()
@@ -22,3 +23,5 @@ print("Current microsecond: %d" % now.microsecond)
 print("Current date and time using strftime:")
 print(now.strftime("%Y-%b-%d %H:%M:%S:%f"))
 print(now.strftime("%Y-%m-%d %H:%M"))
+
+print(calendar.isleap(now.year))
