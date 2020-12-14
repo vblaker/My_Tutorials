@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import chart_studio.plotly as py
 import chart_studio.plotly.plotly
 
-#Define debug level
+# Define debug level
 debug = 0
 
-#PD Data Center SW
+# PD Data Center SW
 
 header_list = ['Time (s)', 'VBUS Voltage (V)', 'VBUS Current (A)', 'VCONN Voltage (V)',
                'VCONN Current (A)', 'CC1 Voltage (V)', 'CC1 Current (A)',
@@ -39,7 +39,7 @@ def identify_column_headers(header_row, header_list, debug=0):
 
     return header_dictionary
 
-#Initialize arrays/lists
+# Initialize arrays/lists
 Time_stamp = []
 VBUS_volts = []
 VBUS_curr = []

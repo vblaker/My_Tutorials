@@ -6,6 +6,11 @@ float('100)
 
 '''
 
+greetings = 'Hello'
+name = 'Vadim'
+message = f'{greetings}, {name.upper()}. Welcome!\n'
+print(message)
+
 
 s = 'hello X42 I\'m a Y-32.35 string Z30'
 xy = ("X", "Y", "Z")

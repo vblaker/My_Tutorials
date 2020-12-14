@@ -30,10 +30,12 @@ class Employee:
     @staticmethod
     def is_workday(day):
         if day.weekday() == 5 or day.weekday() == 6:
-            return False    #False means it was a Saturday or Sunday
-        return True         #True means it wasn't a Saturday or Sunday
+            return False    # False means it was a Saturday or Sunday
+        return True         # True means it wasn't a Saturday or Sunday
 
-print('Number of Employees is {}'.format(Employee.num_of_employees))
+
+# print('Number of Employees is {}'.format(Employee.num_of_employees))
+print(f'Number of Employees is {Employee.num_of_employees}')
 
 # Set instance variables
 emp_1 = Employee('Corey', 'Schafer', 50000)
