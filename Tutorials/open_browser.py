@@ -2,11 +2,13 @@ import webbrowser
 import time
 import os
 
+
 def print_while_sleep(sleep_seconds):
     for i in range(0, sleep_seconds):
         print(".")
         time.sleep(1)
     return 1
+
 
 for i in range(2):
     print("Entered loop # %d" % i)

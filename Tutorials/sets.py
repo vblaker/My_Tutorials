@@ -11,7 +11,7 @@ groceries_set.add('one last thing')
 print(groceries_set)
 
 
-#groceries is a list
+# groceries is a list
 groceries_list = ['cereal', 'milk', 'crunch', 'beer', 'tape', 'lotion', 'beer']
 if 'milk' in groceries_set:
     print('Milk is already there')

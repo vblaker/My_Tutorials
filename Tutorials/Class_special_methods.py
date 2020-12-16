@@ -6,7 +6,7 @@ class Employee:
         self.first = first
         self.last = last
         self.pay = pay
-        self.email = first + '.' + last + '@company.com'
+        self.email = first + '.' + last + '@email.com'
 
     def fullname(self):
         return '{} {}'.format(self.first, self.last)

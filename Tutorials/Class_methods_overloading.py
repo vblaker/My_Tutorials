@@ -37,6 +37,8 @@ class Developer(Employee):
 
 
 class Manager(Employee):
+    raise_amount = 1.15
+
     def __init__(self, first, last, pay, employees=None):
         super().__init__(first, last, pay)
         if employees is None:
@@ -59,6 +61,7 @@ class Manager(Employee):
             print('-->', emp.fullname())
 
 
+# print(help(Developer))
 dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
 dev_2 = Developer('Test', 'Employee', 60000, 'Java')
 

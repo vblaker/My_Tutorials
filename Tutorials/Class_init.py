@@ -12,6 +12,7 @@ class Employee:
         # self.email = first + '.' + last + '@email.com'
         self.email = f'{first}.{last}@email.com'
         Employee.num_of_emps += 1
+        print(f'Employee {self.fullname()} added')
 
     def fullname(self):
         # return '{} {}'.format(self.first, self.last)
@@ -42,7 +43,11 @@ my_date = datetime.datetime.today()
 # Call @static method via class
 print(Employee.is_workday(my_date))
 
+print(f'The number of employees is: {Employee.num_of_emps}')
 emp_1 = Employee('Corey', 'Schafer', 50000)
+print(f'The number of employees is: {Employee.num_of_emps}')
+emp_2 = Employee('Vadim', 'Blaker', 50000)
+print(f'The number of employees is: {Employee.num_of_emps}')
 
 # Call @static method via class instance
 print(emp_1.is_workday(my_date))

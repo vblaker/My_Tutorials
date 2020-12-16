@@ -1,3 +1,6 @@
+import datetime
+
+
 class Employee:
 
     num_of_employees = 0
@@ -15,8 +18,8 @@ class Employee:
         return '{} {}'.format(self.first, self.last)
 
     def apply_raise(self):
-            self.pay = int(self.pay * self.raise_amount)
-            print('Applied {}% raise'.format(self.raise_amount))
+        self.pay = int(self.pay * self.raise_amount)
+        print('Applied {}% raise'.format(self.raise_amount))
 
     @classmethod
     def set_raise_amt(cls, amount):
@@ -25,7 +28,7 @@ class Employee:
     @classmethod
     def from_string(cls, emp_string):
         first, last, pay = emp_string.split('-')
-        return cls(first, last, pay)
+        return cls(first, last, pay)    # cls creates new Employee object
 
     @staticmethod
     def is_workday(day):
@@ -64,10 +67,10 @@ emp_str_3 = 'Jane-Doe-90000'
 
 new_emp_1 = Employee.from_string(emp_str_1)
 
-#Working with static methods
-import datetime
+# Working with static methods
 my_date = datetime.date(2017, 3, 13)
 print('This day was weekday: {}'.format(Employee.is_workday(my_date)))
+print('This day was weekday: {}'.format(Employee.is_workday(datetime.date.today())))
 
 
 if __name__ == '__main__':

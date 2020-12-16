@@ -16,6 +16,7 @@ my_dict = {'a_key': 'a_value', 'another_key': 'another_value'}
 my_dict['another_key']  # 'another_value'
 # This data structure is also known as a `map` or `hash-map`
 
+
 class intDict(object):
     """A dictionary with integer keys"""
 

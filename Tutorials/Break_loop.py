@@ -22,5 +22,6 @@ for n in range(100):  # this too is a comment
     if n % 4 == 0:
         print(n, " is a number divisible by 4")
         numCount += 1
+        # break
 
 print("NumCount is: %d" % numCount)

@@ -66,7 +66,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
         # Find bootloader
         pattern = product + '*bootloader'
         tmp_list = find(pattern, filepath)
-        if tmp_list == []:
+        if not tmp_list:
             err.set_fail('Could not find bootloader')
             raise IOError
         else:
@@ -116,7 +116,7 @@ def read_flash_image_filenames(filepath, product, debug=0):
         # Find boot image
         pattern = 'boot.img'
         tmp_list = find(pattern, os.path.dirname(bootloader))
-        if tmp_list is []:
+        if not tmp_list:
             err.set_fail('Could not find {}'.format(pattern))
             raise IOError
         else:

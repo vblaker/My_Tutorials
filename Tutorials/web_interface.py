@@ -3,6 +3,7 @@ import urllib.request
 from urllib import request
 import re
 
+
 def download_web_image(url):
     name = random.randrange(1, 1000)
     full_name = str(name) + ".jpg"
@@ -10,7 +11,9 @@ def download_web_image(url):
 
 # download_web_image('http://i2.cdn.cnn.com/cnnnext/dam/assets/160303091353-trump-romney-split-medium-tease.jpg')
 
+
 goog_ticker_url = 'http://chart.finance.yahoo.com/table.csv?s=GOOG&a=9&b=18&c=2016&d=10&e=18&f=2016&g=d&ignore=.csv'
+
 
 def download_stock_data(csv_url):
     response = request.urlopen(csv_url)
@@ -22,6 +25,7 @@ def download_stock_data(csv_url):
     for line in lines:
         fx.write(line + "\n'")
     fx.close()
+
 
 download_stock_data(goog_ticker_url)
 

@@ -6,8 +6,10 @@ byte_swapped_string = ''
 
 try:
     if len(my_string) == 0 or len(my_string) % 4 != 0:
+        errorFlag = True
         raise ValueError
-    errorFlag = False
+    else:
+        errorFlag = False
 
     if debug == 0:
 
