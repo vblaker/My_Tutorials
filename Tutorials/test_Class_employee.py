@@ -1,5 +1,7 @@
 from unittest import TestCase
+# from unittest.mock import patch
 from Class_employee import Employee
+# import requests
 
 
 class TestEmployee(TestCase):
@@ -51,7 +53,7 @@ class TestEmployee(TestCase):
         self.assertEqual(self.emp_2.pay, 63000)
 
     # def test_monthly_schedule(self):
-    #     with patch('employee.requests.get') as mocked_get:
+    #     with patch('Employee.requests.get') as mocked_get:
     #         mocked_get.return_value.ok = True
     #         mocked_get.return_value.text = 'Success'
     #

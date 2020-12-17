@@ -11,7 +11,28 @@ name = 'Vadim'
 message = f'{greetings}, {name.upper()}. Welcome!\n'
 print(message)
 
+# String formatting
+person = {'name': 'Jenn', 'age': 23}
+print('My name is {0[name]} and my age is {0[age]}'.format(person))
 
+
+class Person:
+    def __init__(self, first_name, age):
+        self.first_name = first_name
+        self.age = age
+
+
+p1 = Person('Jack', 33)
+print('My name is {0.first_name} and my age is {0.age}'.format(p1))
+
+sentence = 'My name is {name} and I am {age} years old'.format(**person)
+print(sentence)
+
+# Commas for large numbers
+print('1 MB is equal to {:,} bytes'.format((1024*2)))
+
+
+# parsing string
 s = 'hello X42 I\'m a Y-32.35 string Z30'
 xy = ("X", "Y", "Z")
 num_char = (".", "+", "-")
