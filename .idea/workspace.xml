@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Minor update">
-      <change beforePath="$PROJECT_DIR$/.idea/My_Tutorials.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/My_Tutorials.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/Dictionary.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/Exceptions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/file_read_write.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/file_read_write.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/socket.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/selenium_drivers/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/selenium_drivers/chromedriver.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/Class_decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Class_decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/Class_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Class_methods.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +18,31 @@
       </list>
     </option>
   </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
   <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="vadim_test_branch" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
-    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
   </component>
   <component name="ProjectId" id="1ObzQNBmj9i3Kp7tRAovZmERSlc" />
   <component name="ProjectLevelVcsManager">
@@ -49,8 +65,8 @@
       <recent name="D:\Google Drive\Continuous Education\Python\Tutorials\Tutorials" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.file_read_write">
-    <configuration name="CSV_parse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.strings">
+    <configuration name="Exceptions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -62,7 +78,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/CSV_parse.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/Exceptions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -71,7 +87,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="OS_Detect" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Slicing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -83,7 +99,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/OS_Detect.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/Slicing.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -92,7 +108,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="args_kwargs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="strings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -104,7 +120,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/args_kwargs.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/strings.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -113,62 +129,48 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="date_time" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_Class_employee.TestEmployee.test_apply_raise" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tutorials" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/date_time.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_Class_employee.TestEmployee.test_apply_raise&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="file_read_write" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests in test_Class_employee.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tutorials" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/file_read_write.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/Tutorials/test_Class_employee.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.CSV_parse" />
-      <item itemvalue="Python.date_time" />
-      <item itemvalue="Python.args_kwargs" />
-      <item itemvalue="Python.OS_Detect" />
-      <item itemvalue="Python.file_read_write" />
+      <item itemvalue="Python.Exceptions" />
+      <item itemvalue="Python.Slicing" />
+      <item itemvalue="Python.strings" />
+      <item itemvalue="Python tests.Unittests for test_Class_employee.TestEmployee.test_apply_raise" />
+      <item itemvalue="Python tests.Unittests in test_Class_employee.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.file_read_write" />
-        <item itemvalue="Python.OS_Detect" />
-        <item itemvalue="Python.date_time" />
-        <item itemvalue="Python.args_kwargs" />
-        <item itemvalue="Python.CSV_parse" />
+        <item itemvalue="Python.strings" />
+        <item itemvalue="Python.Slicing" />
+        <item itemvalue="Python.Exceptions" />
+        <item itemvalue="Python tests.Unittests in test_Class_employee.py" />
+        <item itemvalue="Python tests.Unittests for test_Class_employee.TestEmployee.test_apply_raise" />
       </list>
     </recent_temporary>
   </component>
@@ -310,7 +312,21 @@
       <option name="project" value="LOCAL" />
       <updated>1607735650665</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Minor update">
+      <created>1607813503395</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1607813503395</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Branch update">
+      <created>1608179512177</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1608179512177</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,9 +360,10 @@
     <MESSAGE value="Class inheritance" />
     <MESSAGE value="Class special dunder functions" />
     <MESSAGE value="Add ammortization.py" />
-    <MESSAGE value="Minor update" />
     <MESSAGE value="Minor updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor updates" />
+    <MESSAGE value="Minor update" />
+    <MESSAGE value="Branch update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Branch update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -362,24 +379,9 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tutorials/Classes.py</url>
-          <line>14</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tutorials/webcrawler.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tutorials/strings.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tutorials/Zipping Lists.py</url>
-          <line>2</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/Tutorials/Class_methods_overloading.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

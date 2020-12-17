@@ -9,6 +9,7 @@ class Employee:
         # self.email = f'{first}.{last}@company.com'
         Employee.num_of_emps += 1
 
+    # @property method allows us to define a method by access it if it was an attribute
     @property
     def email(self):
         # return '{} {}'.format(self.first, self.last)

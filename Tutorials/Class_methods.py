@@ -25,10 +25,11 @@ class Employee:
     def set_raise_amt(cls, amount):
         cls.raise_amount = amount
 
+    # Alternative constructor
     @classmethod
     def from_string(cls, emp_string):
         first, last, pay = emp_string.split('-')
-        return cls(first, last, pay)    # cls creates new Employee object
+        return cls(first, last, pay)    # cls creates new Employee object and returns it
 
     @staticmethod
     def is_workday(day):
