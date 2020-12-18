@@ -18,5 +18,18 @@ class TestStringMethods(unittest.TestCase):
             s.split(2)
 
 
+class SimpleTest(unittest.TestCase):
+    @unittest.skip("demonstrating skipping")
+    def test_add(self):
+        print('Testing add...')
+        self.assertEqual(add(4, 5), 9)
+
+
+# Demo Skipping
+def add(x, y):
+    return x+y
+
+
 if __name__ == '__main__':
     unittest.main()
+

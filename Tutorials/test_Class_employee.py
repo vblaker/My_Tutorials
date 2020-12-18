@@ -1,10 +1,10 @@
-from unittest import TestCase
+import unittest
 # from unittest.mock import patch
 from Class_employee import Employee
 # import requests
 
 
-class TestEmployee(TestCase):
+class TestEmployee(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -33,6 +33,7 @@ class TestEmployee(TestCase):
         self.assertEqual(self.emp_1.email, 'John.Schafer@email.com')
         self.assertEqual(self.emp_2.email, 'Jane.Smith@email.com')
 
+    # @unittest.skip("demonstrating skipping test_fullname")
     def test_fullname(self):
         print('test_fullname')
         self.assertEqual(self.emp_1.fullname, 'Corey Schafer')
