@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Minor update">
+      <change afterPath="$PROJECT_DIR$/Tutorials/SorensenPower.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/Unit_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Unit_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/CSV_parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/CSV_parse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tutorials/test_Class_employee.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/test_Class_employee.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +67,8 @@
       <recent name="D:\Google Drive\Continuous Education\Python\Tutorials\Tutorials" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in test_Class_employee.py">
-    <configuration name="strings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.CSV_parse">
+    <configuration name="CSV_parse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -78,7 +80,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/strings.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/CSV_parse.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -87,7 +89,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for Unit_test.TestStringMethods.test_split" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_Calc.TestCalc" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -97,7 +99,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;Unit_test.TestStringMethods.test_split&quot;" />
+      <option name="_new_target" value="&quot;test_Calc.TestCalc&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -144,19 +146,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.strings" />
-      <item itemvalue="Python tests.Unittests for Unit_test.TestStringMethods.test_split" />
       <item itemvalue="Python tests.Unittests in Unit_test.py" />
       <item itemvalue="Python tests.Unittests for test_Class_employee.TestEmployee" />
       <item itemvalue="Python tests.Unittests in test_Class_employee.py" />
+      <item itemvalue="Python tests.Unittests for test_Calc.TestCalc" />
+      <item itemvalue="Python.CSV_parse" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.CSV_parse" />
+        <item itemvalue="Python tests.Unittests for test_Calc.TestCalc" />
         <item itemvalue="Python tests.Unittests in test_Class_employee.py" />
         <item itemvalue="Python tests.Unittests for test_Class_employee.TestEmployee" />
         <item itemvalue="Python tests.Unittests in Unit_test.py" />
-        <item itemvalue="Python tests.Unittests for Unit_test.TestStringMethods.test_split" />
-        <item itemvalue="Python.strings" />
       </list>
     </recent_temporary>
   </component>
@@ -319,7 +321,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608235128171</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Minor update">
+      <created>1608260047443</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1608260047443</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

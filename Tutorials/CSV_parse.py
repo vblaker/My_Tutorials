@@ -6,7 +6,7 @@ import chart_studio.plotly as py
 import chart_studio.plotly.plotly
 
 # Define debug level
-debug = 0
+debug = 2
 
 # PD Data Center SW
 
@@ -102,12 +102,12 @@ for i in range(0, len(data_list)):
 #print(data_dict.items())
 
 
-if debug >= 2:
+if debug == 2:
     plt.plot(VBUS_volts)
     plt.ylabel('VBUS Voltage (V)')
     plt.show()
 
-if debug >= 1:
+if debug == 1:
     print('The size of data is {}'.format(len(VBUS_volts)))
     print('VBUS MAX Voltage: {}'.format(max(VBUS_volts)))
 
