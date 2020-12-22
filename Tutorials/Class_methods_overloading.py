@@ -61,28 +61,26 @@ class Manager(Employee):
             print('-->', emp.fullname())
 
 
-# print(help(Developer))
-dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
-dev_2 = Developer('Test', 'Employee', 60000, 'Java')
-
-mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
-print(mgr_1.email)
-mgr_1.add_emp(dev_2)
-mgr_1.print_emps()
-mgr_1.remove_emp(dev_1)
-mgr_1.print_emps()
-
-
-# print(dev_1.pay)
-# dev_1.apply_raise()
-# print(dev_1.pay)
-
-
-# print(dev_1.email)
-# print(dev_1.prog_lang)
-
-# print(help(Developer))
-
-
 if __name__ == '__main__':
-    pass
+
+    # print(help(Developer))
+    dev_1 = Developer('Corey', 'Schafer', 50000, 'Python')
+    dev_2 = Developer('Test', 'Employee', 60000, 'Java')
+
+    mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
+    print(mgr_1.email)
+    mgr_1.add_emp(dev_2)
+    mgr_1.print_emps()
+    mgr_1.remove_emp(dev_1)
+    mgr_1.print_emps()
+
+
+    # print(dev_1.pay)
+    # dev_1.apply_raise()
+    # print(dev_1.pay)
+
+
+    # print(dev_1.email)
+    # print(dev_1.prog_lang)
+
+    # print(help(Developer))
