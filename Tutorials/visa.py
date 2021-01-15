@@ -6,7 +6,7 @@ print(equipment_tuple)
 equipment_list = list(equipment_tuple)
 print('There are %d items on the list' % len(equipment_list), equipment_list)
 
-#any('GPIB' in equipment_list for equipment in equipment_list)
+# any('GPIB' in equipment_list for equipment in equipment_list)
 
 i = 0
 for equipment in equipment_list:

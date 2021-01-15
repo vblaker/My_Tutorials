@@ -1,4 +1,5 @@
 import csv
+import argparse
 
 # fw = open('sample.txt', 'w')
 # fw.write('Writing into a text file\n')
@@ -25,3 +26,19 @@ with open('sample.jpg', 'rb') as rf:
         while len(rf_chunk) >0:
             wf.write(rf_chunk)
             rf_chunk = rf.read(chunk_size)
+
+# Set debug parameter from the command prompt
+parser = argparse.ArgumentParser()
+parser.add_argument("-n", "--last_name", help="Last Name")
+args = parser.parse_args()
+
+# Set debug flag
+if args.last_name is False:
+    debug = 0
+else:
+    debug = 1
+
+with open('names.txt', 'r') as myTextFile:
+    for line in myTextFile:
+        print('{} {}'.format(line, " ", args.last_name))
+

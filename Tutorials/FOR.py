@@ -3,8 +3,8 @@
 #    print(food)
 #    print(len(food))
 
-# for x in range(5,12):
-#    print(x)
+for x in range(5, 12):
+    print(x)
 
 butter = 5
 while butter <= 20:

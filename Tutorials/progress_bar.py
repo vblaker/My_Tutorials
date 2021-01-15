@@ -3,6 +3,7 @@ from time import sleep
 import time
 import sys
 
+
 # status generator
 def range_with_status(total):
     """ iterate from 0 to total and show progress in console """
@@ -48,7 +49,7 @@ totalFiles = len(fileList)
 currentFileNum = 1.0
 
 for f in fileList:
-    #ProcessFile(f)
+    # ProcessFile(f)
     currentPercent = currentFileNum / totalFiles * 100
     output = "%.2f of %d completed." % (currentPercent, totalFiles)
     Printer(output)

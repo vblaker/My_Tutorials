@@ -74,11 +74,9 @@ if __name__ == '__main__':
     mgr_1.remove_emp(dev_1)
     mgr_1.print_emps()
 
-
     # print(dev_1.pay)
     # dev_1.apply_raise()
     # print(dev_1.pay)
-
 
     # print(dev_1.email)
     # print(dev_1.prog_lang)

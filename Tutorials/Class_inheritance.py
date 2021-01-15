@@ -12,7 +12,7 @@ class Employee:
         return '{} {}'.format(self.first, self.last)
 
     def apply_raise(self):
-            self.pay = int(self.pay * self.raise_amount)
+        self.pay = int(self.pay * self.raise_amount)
 
 
 # Example of inheritance
@@ -55,7 +55,7 @@ mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
 print(mgr_1.email)
 
 mgr_1.add_emp(dev_2)
-#mgr_1.print_emp()
+# mgr_1.print_emp()
 
 mgr_1.remove_emp(dev_1)
 mgr_1.print_emp()

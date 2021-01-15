@@ -27,7 +27,7 @@ header_dict = {}
 for i in range(len(row)):
     header_dict[header_list[i]] = row.index(header_list[i])
 
-#print(header_dict)
+# print(header_dict)
 
 for key, value in header_dict.items():
     try:
@@ -35,7 +35,6 @@ for key, value in header_dict.items():
     except KeyError:
         print('Key {0} does not exist'.format(key))
         print('header_dict.get{0} method returned {0}'.format(key, header_dict.get(key)))
-
 
 
 def save_user(**user):

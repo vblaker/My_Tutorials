@@ -1,11 +1,3 @@
-
-'''
-str(100)
-int('100')
-float('100)
-
-'''
-
 greetings = 'Hello'
 name = 'Vadim'
 message = f'{greetings}, {name.upper()}. Welcome!\n'
@@ -70,7 +62,7 @@ def extract_nbr(input_str):
         for ele in input_str:
             if ele.isdigit() or ele == '-' or ele == '.':
                 out_number += ele
-                if input_str[j+1].isdigit() != True and input_str[j+1] != '.':
+                if not input_str[j+1].isdigit() and input_str[j+1] != '.':
                     out_array.append(float(out_number))
                     total += float(out_number)
                     out_number = ''
