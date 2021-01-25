@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Minor update">
-      <change afterPath="$PROJECT_DIR$/Tutorials/argsparse_example.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/Class_inheritance.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Class_inheritance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/Class_methods_overloading.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Class_methods_overloading.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/FOR.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/FOR.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/MyDictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/MyDictionary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/Zipping Lists.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Zipping Lists.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/file_read_write.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/file_read_write.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/progress_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/progress_bar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/strings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/visa.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/visa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/args_kwargs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/args_kwargs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +51,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Tutorials/argsparse_example.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1ObzQNBmj9i3Kp7tRAovZmERSlc" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -81,7 +75,7 @@
       <recent name="D:\Google Drive\Continuous Education\Python\Tutorials\Tutorials" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.argsparse_example">
+  <component name="RunManager" selected="Python.args_kwargs">
     <configuration name="FOR" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -103,7 +97,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Zipping Lists" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="args_kwargs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -115,7 +109,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/Zipping Lists.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/args_kwargs.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -189,18 +183,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.FOR" />
-      <item itemvalue="Python.Zipping Lists" />
+      <item itemvalue="Python.args_kwargs" />
+      <item itemvalue="Python.argsparse_example" />
       <item itemvalue="Python.file_read_write" />
       <item itemvalue="Python.strings" />
-      <item itemvalue="Python.argsparse_example" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.args_kwargs" />
         <item itemvalue="Python.argsparse_example" />
         <item itemvalue="Python.file_read_write" />
         <item itemvalue="Python.strings" />
         <item itemvalue="Python.FOR" />
-        <item itemvalue="Python.Zipping Lists" />
       </list>
     </recent_temporary>
   </component>
@@ -384,7 +378,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608607606937</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Minor update">
+      <created>1610740906332</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1610740906332</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
