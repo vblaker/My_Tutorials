@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Minor update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/args_kwargs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/args_kwargs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/argsparse_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/argsparse_example.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -385,7 +385,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610740906332</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Minor update">
+      <created>1611540643991</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1611540643991</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
