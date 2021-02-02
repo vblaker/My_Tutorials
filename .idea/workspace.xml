@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Minor update">
+    <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Commit argparse and tips_tricks.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/argsparse_example.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/argsparse_example.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/tips_tricks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/tips_tricks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -392,7 +392,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611540643991</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Commit argparse and tips_tricks.py">
+      <created>1612302197251</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1612302197251</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -429,7 +436,8 @@
     <MESSAGE value="Minor updates" />
     <MESSAGE value="Branch update" />
     <MESSAGE value="Minor update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor update" />
+    <MESSAGE value="Commit argparse and tips_tricks.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit argparse and tips_tricks.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

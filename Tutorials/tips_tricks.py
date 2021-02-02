@@ -34,6 +34,7 @@ a, _ = (1, 2)
 a, b, *c = (1, 2, 3, 4, 5)
 print(a, b, c)
 
+
 # Set class attribute
 class Person:
     pass
@@ -42,7 +43,7 @@ class Person:
 person = Person()
 first_key = "first"
 first_val = "Vadim"
-setattr = (person, first_key, first_val)
+setattr(person, first_key, first_val)
 
 first = getattr(person, first_key)
 
