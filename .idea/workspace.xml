@@ -2,8 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Commit argparse and tips_tricks.py">
+      <change afterPath="$PROJECT_DIR$/Tutorials/multiprocessing-demo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1493976040374-85c8e12f0c0e.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1504198453319-5ce911bafcde.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1507143550189-fed454f93097.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1513938709626-033611b8cc03.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1516117172878-fd2c41f4a759.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1516972810927-80185027ca84.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1522364723953-452d3431c267.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1524429656589-6633a470097c.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1530122037265-a5f1f91d3b99.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1530224264768-7ff8c1789d79.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1532009324734-20a7a5813719.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1541698444083-023c97d3f4b6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1549692520-acc6669e2f0c.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1550439062-609e1531270e.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/photo-1564135624576-c5c88640f235.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/process-images.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/threading_2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tutorials/threading_download-images.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/tips_tricks.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/tips_tricks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,8 +94,8 @@
       <recent name="D:\Google Drive\Continuous Education\Python\Tutorials\Tutorials" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.args_kwargs">
-    <configuration name="FOR" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.process-images">
+    <configuration name="download-images" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -88,7 +107,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/FOR.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/download-images.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -97,7 +116,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="args_kwargs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="multiprocessing-demo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -109,7 +128,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/args_kwargs.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/multiprocessing-demo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -118,7 +137,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="argsparse_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="process-images" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -130,7 +149,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/argsparse_example.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/process-images.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -139,7 +158,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="file_read_write" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="threading_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -151,7 +170,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/file_read_write.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/threading_2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -160,7 +179,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="strings" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="threading_download-images" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -172,7 +191,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/strings.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tutorials/threading_download-images.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -182,19 +201,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.FOR" />
-      <item itemvalue="Python.args_kwargs" />
-      <item itemvalue="Python.argsparse_example" />
-      <item itemvalue="Python.file_read_write" />
-      <item itemvalue="Python.strings" />
+      <item itemvalue="Python.threading_2" />
+      <item itemvalue="Python.download-images" />
+      <item itemvalue="Python.threading_download-images" />
+      <item itemvalue="Python.multiprocessing-demo" />
+      <item itemvalue="Python.process-images" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.args_kwargs" />
-        <item itemvalue="Python.argsparse_example" />
-        <item itemvalue="Python.file_read_write" />
-        <item itemvalue="Python.strings" />
-        <item itemvalue="Python.FOR" />
+        <item itemvalue="Python.process-images" />
+        <item itemvalue="Python.multiprocessing-demo" />
+        <item itemvalue="Python.threading_download-images" />
+        <item itemvalue="Python.download-images" />
+        <item itemvalue="Python.threading_2" />
       </list>
     </recent_temporary>
   </component>
@@ -399,7 +418,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612302197251</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Commit argparse and tips_tricks.py">
+      <created>1612303063316</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1612303063316</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -448,11 +474,6 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tutorials/amortization.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Tutorials/Zipping Lists.py</url>
           <line>17</line>
           <option name="timeStamp" value="5" />
@@ -461,6 +482,11 @@
           <url>file://$PROJECT_DIR$/Tutorials/strings.py</url>
           <line>36</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Tutorials/process-images.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -471,5 +497,10 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="tuple(size, size)" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
