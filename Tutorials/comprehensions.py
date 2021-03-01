@@ -1,13 +1,13 @@
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # I want 'n' for each 'n' in nums
-my_list = []
-for n in nums:
-    my_list.append(n)
-print(my_list)
+# my_list = []
+# for n in nums:
+#     my_list.append(n)
+# print(my_list)
 
 my_list = [n for n in nums]
-print(my_list)
+print(f'I want \'n\' for each \'n\' in nums: {my_list}')
 
 # I want 'n*n' for each 'n' in nums
 # my_list = []
@@ -16,7 +16,7 @@ print(my_list)
 # print(my_list)
 
 my_list = [n**2 for n in nums]
-print(my_list)
+print(f'I want \'n^2\' for each \'n\' in nums: {my_list}')
 
 # Using a map + lambda
 # my_list = map(lambda n: n*n, nums)
@@ -30,7 +30,7 @@ print(my_list)
 # print(my_list)
 
 my_list = [n**2 for n in nums if (n % 2) == 0]
-print(my_list)
+print(f'I want \'n\' for each \'n\' in nums if \'n\' is even: {my_list}')
 
 # Using a filter + lambda
 # my_list = filter(lambda n: n%2 == 0, nums)
@@ -44,7 +44,7 @@ print(my_list)
 # print(my_list)
 
 my_list = [(letter, num) for letter in 'abcd' for num in range(4)]
-print(my_list)
+print(f'I want a (letter, num) pair (tuple) for each letter in \'abcd\' and each number in \'0123\': {my_list}')
 
 # Dictionary Comprehensions
 my_dict = {}
@@ -60,6 +60,8 @@ heros = ['Batman', 'Superman', 'Spiderman', 'Wolverine', 'Deadpool']
 # print(my_dict)
 
 my_dict = {name: hero for name, hero in zip(names, heros)}
+print(f'I want a dict{{\'name\': \'hero\'}} for each name,hero in zip(names, heros): {my_dict}')
+
 
 # If name not equal to Peter
 
@@ -70,7 +72,7 @@ my_set = set()
 #     my_set.add(n)
 # print(my_set)
 my_set = {n for n in nums}
-print(my_set)
+print(f'SET Comprehension: I want \'n\' for each \'n\' in nums: {my_set}')
 
 # Generator Expressions
 # I want to yield 'n*n' for each 'n' in nums
