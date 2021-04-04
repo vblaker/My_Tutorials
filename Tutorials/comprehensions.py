@@ -72,7 +72,7 @@ my_set = set()
 #     my_set.add(n)
 # print(my_set)
 my_set = {n for n in nums}
-print(f'SET Comprehension: I want \'n\' for each \'n\' in nums: {my_set}')
+print(f"SET Comprehension: I want 'n' for each 'n' in nums: {my_set}")
 
 # Generator Expressions
 # I want to yield 'n*n' for each 'n' in nums
