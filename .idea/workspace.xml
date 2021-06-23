@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Commit Greeter_context_manager.py">
+    <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="Cosmetic update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tutorials/OS_Detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/OS_Detect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tutorials/comprehensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/comprehensions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +75,7 @@
       <recent name="D:\Google Drive\Continuous Education\Python\Tutorials\Tutorials" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.OS_Detect">
+  <component name="RunManager" selected="Python.Comprehensions">
     <configuration name="Comprehensions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="My_Tutorials" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,14 +184,14 @@
     <list>
       <item itemvalue="Python.Comprehensions" />
       <item itemvalue="Python.Greeter_context_manager" />
+      <item itemvalue="Python.OS_Detect" />
       <item itemvalue="Python.Timer" />
       <item itemvalue="Python.process-images" />
-      <item itemvalue="Python.OS_Detect" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.OS_Detect" />
         <item itemvalue="Python.Comprehensions" />
+        <item itemvalue="Python.OS_Detect" />
         <item itemvalue="Python.Greeter_context_manager" />
         <item itemvalue="Python.Timer" />
         <item itemvalue="Python.process-images" />
@@ -420,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618855543698</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Cosmetic update">
+      <created>1621386640928</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1621386640928</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -459,7 +466,8 @@
     <MESSAGE value="Minor update" />
     <MESSAGE value="Commit argparse and tips_tricks.py" />
     <MESSAGE value="Commit Greeter_context_manager.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit Greeter_context_manager.py" />
+    <MESSAGE value="Cosmetic update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cosmetic update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

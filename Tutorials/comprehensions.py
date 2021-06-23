@@ -15,7 +15,7 @@ print(f'I want \'n\' for each \'n\' in nums: {my_list}')
 #   my_list.append(n*n)
 # print(my_list)
 
-my_list = [n**2 for n in nums]
+my_list = [n ** 2 for n in nums]
 print(f'I want \'n^2\' for each \'n\' in nums: {my_list}')
 
 # Using a map + lambda
@@ -29,7 +29,7 @@ print(f'I want \'n^2\' for each \'n\' in nums: {my_list}')
 #     my_list.append(n)
 # print(my_list)
 
-my_list = [n**2 for n in nums if (n % 2) == 0]
+my_list = [n ** 2 for n in nums if (n % 2) == 0]
 print(f'I want \'n\' for each \'n\' in nums if \'n\' is even: {my_list}')
 
 # Using a filter + lambda
@@ -61,7 +61,6 @@ heros = ['Batman', 'Superman', 'Spiderman', 'Wolverine', 'Deadpool']
 
 my_dict = {name: hero for name, hero in zip(names, heros)}
 print(f'I want a dict{{\'name\': \'hero\'}} for each name,hero in zip(names, heros): {my_dict}')
-
 
 # If name not equal to Peter
 
