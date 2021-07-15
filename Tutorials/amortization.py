@@ -10,4 +10,4 @@ Addl_Princ = 50
 start_date = (date(2016, 1, 1))
 
 pmt = np.pmt(Interest_Rate/Payments_Year, Years * Payments_Year, Principal)
-print(pmt)
+print('Payment is: ${:.2f}'.format(abs(pmt)))
