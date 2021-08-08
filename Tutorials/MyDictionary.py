@@ -31,7 +31,8 @@ for i in range(len(row)):
 
 for key, value in header_dict.items():
     try:
-        print(value, key)
+        # print(value, key)
+        print('The key is : {}. The value is {}'.format(key, value))
     except KeyError:
         print('Key {0} does not exist'.format(key))
         print('header_dict.get{0} method returned {0}'.format(key, header_dict.get(key)))
