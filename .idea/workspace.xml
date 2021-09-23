@@ -7,7 +7,6 @@
     <list default="true" id="59541aa3-48b1-4b58-895c-99e55531a7b5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tutorials/Selenium_101.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/Selenium_101.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/selenium_drivers/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/selenium_drivers/chromedriver.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -459,7 +458,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628445927837</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Update to driver.find_element">
+      <created>1631662483710</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1631662483710</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -499,7 +505,8 @@
     <MESSAGE value="Commit argparse and tips_tricks.py" />
     <MESSAGE value="Commit Greeter_context_manager.py" />
     <MESSAGE value="Cosmetic update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cosmetic update" />
+    <MESSAGE value="Update to driver.find_element" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to driver.find_element" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -528,11 +535,6 @@
           <url>file://$PROJECT_DIR$/Tutorials/MyDictionary.py</url>
           <line>31</line>
           <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Tutorials/Selenium_101.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
